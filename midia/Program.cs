@@ -1,7 +1,8 @@
 ﻿using System;
 
 // Classe "Midia" é a classe pai de "Serie" e "Filme"
-class Midia{
+class Midia
+{
     // Atributos
     protected int ID_Midia;
     protected string Titulo;
@@ -11,7 +12,8 @@ class Midia{
     protected double Media_Avaliacoes;
 
     // Construtor
-    public Midia(int id_midia, string titulo, string genero, int ano_lancamento, double media_avaliacoes){
+    public Midia(int id_midia, string titulo, string genero, int ano_lancamento, double media_avaliacoes)
+    {
         ID_Midia = id_midia;
         Titulo = titulo;
         Genero = genero;
@@ -20,7 +22,8 @@ class Midia{
     }
 
     // Método que calcula a média das avaliações
-    public double calcularMediaAvaliacoes(){
+    public double calcularMediaAvaliacoes()
+    {
         // Contador para ser o denominador do cálculo da média
         int c = 0;
         // Recebe a soma de todas as avaliações para calcular a média
@@ -33,14 +36,21 @@ class Midia{
             soma_avaliacoes += double.Parse(avaliacao.nota);
             c++;
         }
-        
+
         // Retorna a média das avaliações, dividindo a soma total das notas pela quantidade de avaliações que a mídia recebeu
         return soma_avaliacoes / c;
     }
+    
+    public override string ToString()
+    {
+        return $"{Nome} ({AnoLancamento}) - Gênero: {Genero}";
+    }
+
 }
 
 // Classe "Serie" herda de "Midia"
-class Serie : Midia{
+class Serie : Midia
+{
     // Atributos
     protected int Quantidade_Temporadas;
     protected int Quantidade_Episodios;
@@ -71,10 +81,16 @@ class Serie : Midia{
         // Retorna a soma da duração de todos os episódios da série
         return duracao_total;
     }
+    
+    public override string ToString()
+    {
+        return base.ToString() + $", {Quantidade_Temporadas} temporadas, {Quantidade_Episodios} episódios, Duração média: {Duracao_Total} min";
+    }
 }
 
 // Classe "Episodio" herda de "Serie"
-class Episodio : Serie{
+class Episodio : Serie
+{
     // Atributos
     protected int ID_Episodio;
     protected string Titulo_Episodio;
@@ -84,9 +100,11 @@ class Episodio : Serie{
     public Episodio(int id_midia, string titulo, string genero, int ano_lancamento, double media_avaliacoes,
         int quantidade_temporadas, int quantidade_episodios,
         int id_episodio, string titulo_episodio, int duracao_episodio)
-        : base(id_midia, titulo, genero, ano_lancamento, media_avaliacoes, quantidade_temporadas, quantidade_episodios){
+        : base(id_midia, titulo, genero, ano_lancamento, media_avaliacoes, quantidade_temporadas, quantidade_episodios)
+    {
         ID_Episodio = id_episodio;
         Titulo_Episodio = titulo_episodio;
         Duracao_Episodio = duracao_episodio;
     }
+
 }
