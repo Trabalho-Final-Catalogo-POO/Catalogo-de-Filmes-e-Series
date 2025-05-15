@@ -1,0 +1,5 @@
+C:\Users\edlau\OneDrive\!PUC\3°\POO\Catalogo-de-Filmes-e-Series\midia\obj\Debug\net8.0\midia.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\edlau\OneDrive\!PUC\3°\POO\Catalogo-de-Filmes-e-Series\midia\obj\Debug\net8.0\midia.AssemblyInfoInputs.cache
+C:\Users\edlau\OneDrive\!PUC\3°\POO\Catalogo-de-Filmes-e-Series\midia\obj\Debug\net8.0\midia.AssemblyInfo.cs
+C:\Users\edlau\OneDrive\!PUC\3°\POO\Catalogo-de-Filmes-e-Series\midia\obj\Debug\net8.0\midia.csproj.CoreCompileInputs.cache
+C:\Users\edlau\OneDrive\!PUC\3°\POO\Catalogo-de-Filmes-e-Series\midia\obj\Debug\net8.0\midia.sourcelink.json
