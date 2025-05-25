@@ -1,16 +1,3 @@
-﻿/*
-MUDANÇAS vladimir
-= Class Program
-    - Adiçao da função menu
-= Class Catalogo
-    - metodos para quantificar series e filmes
-    - adiçao da sobrecarga das funçoes de adiçao de series e filmes
-    - Metodo para verificar adição de series ou filmes repetidos e bloquear
-= Class Favoritos
-    - metodo para quantificar favoritos
-    - metodo add favoritos verifica se ja existe na lista(MELHORADO)
-    - Mudança na formataçao do cadastro de filme e serie
-*/
 using System;
 using System.Collections.Generic;
 using System.Runtime.Intrinsics.Arm;
