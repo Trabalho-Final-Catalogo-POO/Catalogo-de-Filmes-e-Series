@@ -32,8 +32,8 @@ class Program
                     } while (Console.ReadKey(true).Key == ConsoleKey.Enter);
                     break;
                 case 3: // Favoritar (DONE)
-                    if (catalogo.QtdFilmes() > 0 || catalogo.QtdSeries() > 0) // Se existirem series ou filmes
-                        if (usuario.favoritos.QtdFavoritos() < (catalogo.QtdFilmes() + catalogo.QtdSeries())) // se ainda existirem series a serem favoritadas
+                    if (catalogo.QtdMidias() > 0) // Se existirem series ou filmes
+                        if (usuario.favoritos.QtdFavoritos() < catalogo.QtdMidias()) // se ainda existirem series a serem favoritadas
                         {
                             Console.Clear();
 
@@ -118,7 +118,7 @@ class Program
                     }
                     break;
                 case 4: // Exibir (DONE)
-                    if (catalogo.QtdFilmes() > 0 || catalogo.QtdSeries() > 0) // Se houver series ou filmes
+                    if (catalogo.QtdMidias() > 0) // Se houver series ou filmes
                     {
                         int escolha;
                         bool Existem = false;
@@ -127,7 +127,7 @@ class Program
                         {
                             Console.Clear();
 
-                            Console.WriteLine("  Catalogo Filmes e Series");
+                            Console.WriteLine("  Menu exibição");
                             Console.WriteLine("----------------------------");
                             Console.WriteLine(" 1 - Exibir filmes");
                             Console.WriteLine(" 2 - Exibir series");
@@ -215,7 +215,321 @@ class Program
                         Console.ReadKey(true);
                     }
                     break;
-                case 5: // Sair, animado (DONE)
+                case 5: // Remover (DONE?)
+                    if (catalogo.QtdMidias() > 0) // Se houver series ou filmes
+                    {
+                        int escolha;
+
+                        do
+                        {
+                            Console.Clear();
+
+                            Console.WriteLine("\n  Menu remover");
+                            Console.WriteLine("----------------------------");
+                            Console.WriteLine(" 1 - Remover midia");
+                            Console.WriteLine(" 2 - Remover todos os filmes");
+                            Console.WriteLine(" 3 - Remover todas as series");
+                            Console.WriteLine(" 4 - Remover todas midias");
+                            Console.WriteLine(" 5 - Remover favorito");
+                            Console.WriteLine(" 6 - Remover todos os favoritos");
+                            Console.WriteLine(" 7 - voltar\n");
+                            escolha = int.Parse(Console.ReadLine());
+
+                            if (escolha == 1) // (DONE?)
+                            {
+                                if ((catalogo.QtdFilmes() + catalogo.QtdSeries()) > 0)
+                                    do
+                                    {
+                                        Console.Clear();
+
+                                        Console.Write("\nInforme o nome da midia a ser removida : ");
+                                        string Midia = Console.ReadLine();
+
+                                        Midia MidiaRemovida = catalogo.BuscarPorNome(Midia);
+
+                                        if (MidiaRemovida != null)
+                                        {
+                                            Console.WriteLine("\nMidia Encontrada.");
+                                            Console.Write("Removendo.");
+                                            for (int i = 0; i < 3; i++)
+                                            {
+                                                Thread.Sleep(300);
+                                                Console.Write(".");
+                                            }
+
+                                            if (catalogo.RemoveMidia(MidiaRemovida))
+                                            {
+                                                Console.WriteLine($"{MidiaRemovida} Removido(a) com sucesso.");
+                                                Console.WriteLine("Remover outra?(Enter confima)");
+                                            }
+                                            else
+                                                Console.WriteLine($"Erro ao remover {MidiaRemovida}.");
+                                        }
+                                        else
+                                        {
+                                            Console.WriteLine($"\n\"{Midia}\" não encontrada.");
+                                            Console.WriteLine("Tentar novamente?(Enter confirma)");
+                                        }
+                                    } while (Console.ReadKey(true).Key == ConsoleKey.Enter);
+
+                                else
+                                {
+                                    Console.WriteLine("Não há midias a remover.");
+                                    Console.ReadKey(true);
+                                }
+                            }
+                            else if (escolha == 2) // (DONE?)
+                            {
+                                if (catalogo.QtdFilmes() > 0)
+                                {
+
+                                    bool Repetir = false;
+                                    do
+                                    {
+                                        Console.Clear();
+
+                                        Console.WriteLine("\nRemover todos os filmes.");
+                                        Console.WriteLine("Tem certeza? (digite SIM)");
+
+                                        string confimaçao = Console.ReadLine().Trim().ToUpper();
+
+                                        if (confimaçao == "SIM")
+                                        {
+                                            Console.Write("\nRemovendo todos os filmes.");
+                                            for (int i = 0; i < 4; i++)
+                                            {
+                                                Thread.Sleep(400);
+                                                Console.Write(".");
+                                            }
+                                            Console.WriteLine("");
+
+                                            catalogo.RemoverFilmes();
+
+                                            Console.WriteLine("Filmes removidos.");
+                                            Console.ReadKey(true);
+
+                                            Repetir = false;
+                                        }
+                                        else
+                                        {
+                                            Console.WriteLine("\nResposta inválida");
+                                            Console.WriteLine("Tentar novamente ?(Enter confirma)");
+                                            if (Console.ReadKey(true).Key == ConsoleKey.Enter)
+                                            { Repetir = true; }
+                                        }
+                                    } while (Repetir);
+                                }
+                                else
+                                {
+                                    Console.WriteLine("Não há midias a remover.");
+                                    Console.ReadKey(true);
+                                }
+                            }
+                            else if (escolha == 3) // (DONE?)
+                            {
+                                if (catalogo.QtdSeries() > 0)
+                                {
+                                    bool Repetir = false;
+                                    do
+                                    {
+                                        Console.Clear();
+
+                                        Console.WriteLine("\nRemover todos as series.");
+                                        Console.WriteLine("Tem certeza? (digite SIM)");
+
+                                        string confimaçao = Console.ReadLine().Trim().ToUpper();
+
+                                        if (confimaçao == "SIM")
+                                        {
+                                            Console.Write("\nRemovendo todas as series.");
+                                            for (int i = 0; i < 4; i++)
+                                            {
+                                                Thread.Sleep(400);
+                                                Console.Write(".");
+                                            }
+                                            Console.WriteLine("");
+
+                                            catalogo.RemoverSeries();
+
+                                            Console.WriteLine("Series removidas.");
+                                            Console.ReadKey(true);
+
+                                            Repetir = false;
+                                        }
+                                        else
+                                        {
+                                            Console.WriteLine("\nResposta inválida");
+                                            Console.WriteLine("Tentar novamente ?(Enter confirma)");
+                                            if (Console.ReadKey(true).Key == ConsoleKey.Enter)
+                                            { Repetir = true; }
+                                        }
+                                    } while (Repetir);
+                                }
+                                else
+                                {
+                                    Console.WriteLine("Não há midias a remover.");
+                                    Console.ReadKey(true);
+                                }
+                            }
+                            else if (escolha == 4) // (DONE?)
+                            {
+                                if ((catalogo.QtdFilmes() + catalogo.QtdSeries()) > 0)
+                                {
+                                    bool Repetir = false;
+                                    do
+                                    {
+                                        Console.Clear();
+
+                                        Console.WriteLine("\nRemover todas as mídias.");
+                                        Console.WriteLine("Tem certeza? (digite CONFIRMA)");
+
+                                        string confimaçao = Console.ReadLine().Trim().ToUpper();
+
+                                        if (confimaçao == "CONFIRMA")
+                                        {
+                                            Console.Write("\nRemovendo todas as Midias.");
+                                            for (int i = 0; i < 4; i++)
+                                            {
+                                                Thread.Sleep(400);
+                                                Console.Write(".");
+                                            }
+                                            Console.WriteLine("");
+
+                                            catalogo.RemoverFilmes();
+                                            catalogo.RemoverSeries();
+
+                                            Console.WriteLine("Midias removidas.");
+                                            Console.ReadKey(true);
+
+                                            Repetir = false;
+                                        }
+                                        else
+                                        {
+                                            Console.WriteLine("\nResposta inválida");
+                                            Console.WriteLine("Tentar novamente ?(Enter confirma)");
+                                            if (Console.ReadKey(true).Key == ConsoleKey.Enter)
+                                            { Repetir = true; }
+                                        }
+                                    } while (Repetir);
+                                }
+                                else
+                                {
+                                    Console.WriteLine("Não há midias a remover.");
+                                    Console.ReadKey(true);
+                                }
+                            }
+                            else if (escolha == 5) // (DONE?)
+                            {
+                                if (usuario.favoritos.QtdFavoritos() > 0)
+                                    do
+                                    {
+                                        Console.Clear();
+
+                                        Console.Write("\nInforme o nome da midia a ser removida dos favoritos: ");
+                                        string Midia = Console.ReadLine();
+
+                                        Midia FavoritoRemover = usuario.favoritos.BuscarPorNome(Midia);
+
+                                        if (FavoritoRemover != null)
+                                        {
+                                            Console.WriteLine("\nMidia Encontrada.");
+                                            Console.Write("Removendo.");
+                                            for (int i = 0; i < 3; i++)
+                                            {
+                                                Thread.Sleep(300);
+                                                Console.Write(".");
+                                            }
+
+                                            if (usuario.favoritos.RemoverFavorito(FavoritoRemover))
+                                            {
+                                                Console.WriteLine($"{FavoritoRemover} Removido(a) com sucesso.");
+                                                Console.WriteLine("Remover outra?(Enter confima)");
+                                            }
+                                            else
+                                                Console.WriteLine($"Erro ao remover {FavoritoRemover}.");
+                                        }
+                                        else
+                                        {
+                                            Console.WriteLine($"\n\"{Midia}\" não encontrada.");
+                                            Console.WriteLine("Tentar novamente?(Enter confirma)");
+                                        }
+                                    } while (Console.ReadKey(true).Key == ConsoleKey.Enter);
+                                else
+                                {
+                                    Console.WriteLine("Não há favoritos a remover.");
+                                    Console.ReadKey(true);
+                                }
+                            }
+                            else if (escolha == 6) // (DONE?)5
+                            {
+                                if (usuario.favoritos.QtdFavoritos() > 0)
+                                {
+                                    bool Repetir = false;
+                                    do
+                                    {
+                                        Console.Clear();
+
+                                        Console.WriteLine("\nRemover todos os favoritos.");
+                                        Console.WriteLine("Tem certeza? (digite CONFIRMA)");
+
+                                        string confimaçao = Console.ReadLine().Trim().ToUpper();
+
+                                        if (confimaçao == "CONFIRMA")
+                                        {
+                                            Console.Write("\nRemovendo todas os favoritos.");
+                                            for (int i = 0; i < 4; i++)
+                                            {
+                                                Thread.Sleep(400);
+                                                Console.Write(".");
+                                            }
+                                            Console.WriteLine("");
+
+                                            usuario.favoritos.RemoverFavoritos();
+
+                                            Console.WriteLine("Favoritos removidos.");
+                                            Console.ReadKey(true);
+
+                                            Repetir = false;
+                                        }
+                                        else
+                                        {
+                                            Console.WriteLine("\nResposta inválida");
+                                            Console.WriteLine("Tentar novamente ?(Enter confirma)");
+                                            if (Console.ReadKey(true).Key == ConsoleKey.Enter)
+                                            { Repetir = true; }
+                                        }
+                                    } while (Repetir);
+                                }
+                                else
+                                {
+                                    Console.WriteLine("Não há favoritos a remover.");
+                                    Console.ReadKey(true);
+                                }
+                            }
+                            else if (escolha == 7)
+                            {
+                                Console.Write("\nVoltando.");
+                                for (int i = 0; i < 3; i++)
+                                {
+                                    Thread.Sleep(200);
+                                    Console.Write(".");
+                                }
+                            }
+                            else
+                            {
+                                Console.WriteLine("\n OPÇÃO INVÁLIDA.");
+                                Console.ReadKey(true);
+                            }
+
+                        } while (escolha != 7);
+                    }
+                    else // Não existem series ou filmes
+                    {
+                        Console.WriteLine("\n Não há series ou filmes cadastrados.");
+                        Console.ReadKey(true);
+                    }
+                    break;
+                case 6: // Sair, animado (DONE)
                     Console.Write("\nFinalizando o programa.");
                     for (int i = 0; i < 4; i++)
                     {
@@ -223,7 +537,7 @@ class Program
                         Console.Write(".");
                     }
                     break;
-                case 6: // Teste placeholder
+                case 7: // Teste placeholder
                     catalogo.cadastrarFilme("a grande viagem", "comedia", "pedro", 1954, 154);
                     catalogo.cadastrarFilme("mochileiro", "suspense", "unknown", 2000, 210);
                     catalogo.cadastrarSerie("Doctor house", "Medica", "john albert", 1950, 5, 402, 40);
@@ -232,11 +546,10 @@ class Program
                     catalogo.exibirFilmes();
                     catalogo.exibirSeries();
 
-                    Console.Write("Adicionando o primeiro filme e serie nos favoritos");
+                    Console.WriteLine("Adicionando o primeiro filme e serie nos favoritos");
 
                     usuario.favoritos.AdicionarNaLista(catalogo.BuscarPorNome("a grande viagem"));
                     usuario.favoritos.AdicionarNaLista(catalogo.BuscarPorNome("Doctor house"));
-                    Console.WriteLine("Mídia adicionada aos favoritos!");
 
                     usuario.favoritos.ExibirFavoritos();
 
@@ -247,7 +560,7 @@ class Program
                     Console.ReadKey(true);
                     break;
             }
-        } while (opçao != 5);
+        } while (opçao != 6);
     }
     static public int Menu()
     {
@@ -258,15 +571,15 @@ class Program
         Console.WriteLine("==============================");
         Console.WriteLine(" 1 - Cadastrar filme");
         Console.WriteLine(" 2 - Cadastrar serie");
-        Console.WriteLine(" 3 - Favoritar ");
+        Console.WriteLine(" 3 - Favoritar");
         Console.WriteLine(" 4 - Exibir");
-        Console.WriteLine(" 5 - Sair");
-        Console.WriteLine(" 6 - Teste Placeholders\n");
+        Console.WriteLine(" 5 - Remover");
+        Console.WriteLine(" 6 - Sair");
+        Console.WriteLine(" 7 - Teste Placeholders\n"); // REMOVER
 
-        return int.Parse(Console.ReadLine()); // Retorno direto de opçao
+        return int.Parse(Console.ReadLine());
     }
 }
-
 class Catalogo
 {
     // Funçao cadastro de filme, sobrecarga passando parametros
@@ -319,6 +632,31 @@ class Catalogo
     public int QtdFilmes() { return filmes.Count; }
 
     public int QtdSeries() { return series.Count; }
+    public int QtdMidias() { return QtdFilmes() + QtdSeries(); }
+    
+    public bool RemoveMidia(Midia midia)
+    {
+        List<Midia> Midias = new();
+        Midias.AddRange(filmes);
+        Midias.AddRange(series);
+
+        foreach (Midia m in Midias)
+            if (midia == m)
+            {
+                Midias.Remove(midia);
+                return true;
+            }
+
+        return false;
+    }
+    public void RemoverFilmes()
+    {
+        filmes.Clear();
+    }
+    public void RemoverSeries()
+    {
+        series.Clear();
+    }
 }
 class Favoritos
 {
@@ -351,4 +689,26 @@ class Favoritos
 
     // Função count
     public int QtdFavoritos() { return listaFavoritos.Count; }
+    
+    public bool RemoverFavorito(Midia midia)
+    {
+        foreach (Midia m in listaFavoritos)
+            if (midia == m)
+            {
+                listaFavoritos.Remove(m);
+                return true;
+            }
+
+        return false;
+    }
+    public void RemoverFavoritos() { listaFavoritos.Clear(); }
+
+    public Midia BuscarPorNome(string nome)
+    {
+        foreach (Midia m in listaFavoritos)
+            if (m.Nome.Equals(nome, StringComparison.OrdinalIgnoreCase))
+                return m;
+
+        return null;
+    }
 }
