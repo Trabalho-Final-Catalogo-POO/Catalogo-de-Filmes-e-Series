@@ -1,6 +1,5 @@
 class Favoritos
 {
-
     private List<Midia> listaFavoritos = new List<Midia>();
 
     public void AdicionarNaLista(Midia midia)
@@ -17,6 +16,4 @@ class Favoritos
             Console.WriteLine(m);
         }
     }
-
-
 }
