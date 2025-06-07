@@ -40,7 +40,29 @@ class Catalogo
         Console.WriteLine("\nFilme cadastrado com sucesso!");
         Console.WriteLine("*****************************************************\n");
     }
+   // Funçao cadastro de filme, sobrecarga passando parametros
+    public void cadastrarFilme(string nome, string genero, string diretor, int anoLancamento, double duracao)
+    {
+        bool FilmeNovo = true;
+        Filme novo = new Filme(nome, genero, anoLancamento, duracao, diretor);
 
+        // Nova busca por midia antes da adiçao
+        foreach (Filme f in filmes) // Procura na lista de filmes 
+            if (f.Nome == novo.Nome)
+                FilmeNovo = false;
+
+        foreach (Serie s in series) // Procura na lista de series 
+            if (s.Nome == novo.Nome)
+                FilmeNovo = false;
+
+        if (FilmeNovo)
+        {
+            filmes.Add(novo);
+            Console.WriteLine("\nFilme cadastrado com sucesso!");
+        }
+        else
+            Console.WriteLine("\nFilme ou Serie já cadastrado com mesmo nome.\n");
+    }
     public void cadastrarSerie()
     {
         Console.Clear();
@@ -76,7 +98,29 @@ class Catalogo
         Console.WriteLine("\nSérie cadastrada com sucesso!");
         Console.WriteLine("*****************************************************\n");
     }
+     // Funçao cadastro de serie, sobrecarga passando parametros
+    public void cadastrarSerie(string nome, string genero, string diretor, int anoLancamento, int temporadas, int qntEpisodios, double duracao)
+    {
+        bool SerieNova = true;
+        Serie nova = new Serie(nome, genero, anoLancamento, duracao, temporadas, qntEpisodios);
 
+        // Nova busca por midia antes da adiçao
+        foreach (Serie s in series) // Procura na lista de series 
+            if (s.Nome == nova.Nome)
+                SerieNova = false;
+
+        foreach (Filme f in filmes) // Procura na lista de filmes 
+            if (f.Nome == nova.Nome)
+                SerieNova = false;
+
+        if (SerieNova)
+        {
+            series.Add(nova);
+            Console.WriteLine("\nSérie cadastrada com sucesso!");
+        }
+        else
+            Console.WriteLine("\nFilme ou Serie já cadastrado com mesmo nome.\n");
+    }
     public void exibirFilmes()
     {
         Console.WriteLine("***************** FILMES *****************");
@@ -112,5 +156,35 @@ class Catalogo
         }
 
         return null;
+    }
+    
+    // Funçoes count
+    public int QtdFilmes() { return filmes.Count; }
+    public int QtdSeries() { return series.Count; }
+    public int QtdMidias() { return QtdFilmes() + QtdSeries(); }
+
+    public bool RemoveMidia(Midia midia)
+    {
+        List<Midia> Midias = new();
+        Midias.AddRange(filmes);
+        Midias.AddRange(series);
+
+        foreach (Midia m in Midias)
+            if (midia == m)
+            {
+                Midias.Remove(midia);
+                return true;
+            }
+
+        return false;
+    }
+
+    public void RemoverFilmes()
+    {
+        filmes.Clear();
+    }
+     public void RemoverSeries()
+    {
+        series.Clear();
     }
 }
