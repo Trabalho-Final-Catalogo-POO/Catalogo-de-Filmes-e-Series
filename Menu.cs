@@ -11,17 +11,15 @@ class Program
 class Menu
 {
     Catalogo catalogo = new Catalogo();
-    Usuario usuario = new Usuario();
-    public void MenuFuncional()
+    public int MenuPrincipal(Usuario usuario)
     {
         int opçao;
-
         do
         {
-            opçao = MenuPrincipal();
+            opçao = MenuOpcoes(usuario._Nome);
             switch (opçao)
             {
-                case 1: // Cadastrar filme (DONE)
+                case 1: // Cadastrar filme
                     do
                     {
                         catalogo.cadastrarFilme();
@@ -29,7 +27,7 @@ class Menu
                         Console.WriteLine("\nDeseja cadastrar outro filme?(Enter para confirmar)");
                     } while (Console.ReadKey(true).Key == ConsoleKey.Enter);
                     break;
-                case 2: // Cadastrar serie (DONE)
+                case 2: // Cadastrar serie
                     do
                     {
                         catalogo.cadastrarSerie();
@@ -37,13 +35,13 @@ class Menu
                         Console.WriteLine("\nDeseja cadastrar outra serie? (Enter para confirmar)");
                     } while (Console.ReadKey(true).Key == ConsoleKey.Enter);
                     break;
-                case 3: // Favoritar (DONE)
+                case 3: // Favoritar
                     if (catalogo.QtdFilmes() > 0 || catalogo.QtdSeries() > 0) // Se existirem series ou filmes
                         if (usuario.favoritos.QtdFavoritos() < (catalogo.QtdFilmes() + catalogo.QtdSeries())) // se ainda existirem series a serem favoritadas
                         {
                             Console.Clear();
 
-                            Console.WriteLine($"\n {{{catalogo.QtdSeries() + catalogo.QtdFilmes()}}} midia(s) cadastrada(s) no catalogo,");
+                            Console.WriteLine($"\n{{{catalogo.QtdSeries() + catalogo.QtdFilmes()}}} midia(s) cadastrada(s) no catalogo,");
                             Console.WriteLine($"\n{{{usuario.favoritos.QtdFavoritos()}}} favoritado(s).");
                             Console.WriteLine("\nDeseja exibir as series e filmes para favoritar ? (Enter confirma)");
 
@@ -105,7 +103,7 @@ class Menu
                         {
                             Console.Clear();
 
-                            Console.WriteLine($"\n {{{catalogo.QtdSeries() + catalogo.QtdFilmes()}}} midia(s) cadastrada(s) no catalogo,");
+                            Console.WriteLine($"\n{{{catalogo.QtdSeries() + catalogo.QtdFilmes()}}} midia(s) cadastrada(s) no catalogo,");
                             Console.WriteLine($"\n{{{usuario.favoritos.QtdFavoritos()}}} favoritado(s).");
                             Console.WriteLine("\nNão há series ou filmes a serem favoritadas.");
 
@@ -123,7 +121,7 @@ class Menu
                         Console.ReadKey(true);
                     }
                     break;
-                case 4: // Exibir (DONE)
+                case 4: // Exibir
                     if (catalogo.QtdFilmes() > 0 || catalogo.QtdSeries() > 0) // Se houver series ou filmes
                     {
                         int escolha;
@@ -221,15 +219,23 @@ class Menu
                         Console.ReadKey(true);
                     }
                     break;
-                case 5: // Sair, animado (DONE)
-                    Console.Write("\nFinalizando o programa.");
+                case 5: // Saindo do usuário
+                    Console.Write("\nVoltando ao menu de login.");
                     for (int i = 0; i < 4; i++)
                     {
                         Thread.Sleep(400);
                         Console.Write(".");
                     }
                     break;
-                case 6: // Teste placeholder
+                case 6: // Sair
+                    Console.Write("\nFinalizando sessão.");
+                    for (int i = 0; i < 4; i++)
+                    {
+                        Thread.Sleep(400);
+                        Console.Write(".");
+                    }
+                    return 1;
+                case 7: // Teste placeholder
                     catalogo.cadastrarFilme("a grande viagem", "comedia", "pedro", 1954, 154);
                     catalogo.cadastrarFilme("mochileiro", "suspense", "unknown", 2000, 210);
                     catalogo.cadastrarSerie("Doctor house", "Medica", "john albert", 1950, 5, 402, 40);
@@ -248,31 +254,48 @@ class Menu
 
                     Console.ReadKey(true);
                     break;
-                default: // (DONE)
+                default:
                     Console.WriteLine("\n Opção inválida!");
                     Console.ReadKey(true);
                     break;
             }
-        } while (opçao != 5);
+        } while (opçao != 5 && opçao != 6);
+
+        return 0; // Menu executado normalmente e finalizado pela opção 6
     }
-    public static int MenuPrincipal()
+    public int MenuOpcoes(string Usuario)
     {
         Console.Clear();
 
         Console.WriteLine("==============================");
         Console.WriteLine("  Catálogo de Filmes e Séries");
         Console.WriteLine("==============================");
+        Console.WriteLine($"Usuário : {Usuario}\n");
         Console.WriteLine(" 1 - Cadastrar Filme");
         Console.WriteLine(" 2 - Cadastrar Série");
         Console.WriteLine(" 3 - Favoritar");
         Console.WriteLine(" 4 - Exibir");
-        Console.WriteLine(" 5 - Sair");
+        Console.WriteLine(" 5 - Trocar de usuário");
+        Console.WriteLine(" 6 - Finalizar programa");
         Console.Write("\nEscolha uma opção: ");
 
         if (int.TryParse(Console.ReadLine(), out int opcao))
             return opcao;
         else
             return -1;
+    }
+    public int MenuInicial()
+    {
+        Console.Clear();
 
+        Console.WriteLine("==============================");
+        Console.WriteLine("  Catálogo de Filmes e Séries");
+        Console.WriteLine("==============================");
+        Console.WriteLine(" 1 - Login");
+        Console.WriteLine(" 2 - Cadastrar");
+        Console.WriteLine(" 3 - Sair");
+        Console.Write("\nEscolha uma opção: ");
+
+        return int.Parse(Console.ReadLine());
     }
 }
