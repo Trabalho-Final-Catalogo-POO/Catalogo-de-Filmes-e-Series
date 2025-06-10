@@ -1,9 +1,7 @@
-using System;
-
 public class Menu
 {
     Catalogo catalogo = new Catalogo();
-    public int MenuPrincipal(OperaçoesUsuario.Usuario usuario)
+    public int MenuPrincipal(Usuario usuario)
     {
         int opçao;
         do

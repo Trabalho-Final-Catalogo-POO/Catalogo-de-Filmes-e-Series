@@ -1,5 +1,3 @@
-using System;
-
 public class Catalogo
 {
     private List<Filme> filmes = new List<Filme>();
