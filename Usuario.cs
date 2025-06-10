@@ -30,6 +30,23 @@ public class OperaçoesUsuario
             this.Senha = Senha;
             this.Nome = Nome;
         }
+        public bool VerificaNome(string Nome, List<Usuario> Usuarios) // Impede que o nome do usuário esteja vazio ou que se repita
+        {
+            if (Nome == "")
+            {
+                Console.WriteLine("\nO usuário não pode ficar vazio.");    
+                return false;
+            }
+            foreach (Usuario x in Usuarios)// Verifica se o usuário existe na cadastro
+                    if (Nome.ToUpper() == x._Nome.ToUpper())
+                    {
+                        Console.WriteLine("\nUsuário já existente.");
+
+                        return false;
+                    }
+
+            return true;
+        }
         public void NovoNome(string Nome)
         {
             this.Nome = Nome;
@@ -53,11 +70,9 @@ public class OperaçoesUsuario
     public string Cadastrar()
     {
         Usuario Novo = new();
-        bool existe;
+        bool sts;
         do // Loop inserção de usuário
         {
-            existe = false;
-
             Console.Clear();
 
             Console.WriteLine("Cadastro de usuário");
@@ -66,16 +81,9 @@ public class OperaçoesUsuario
             Console.Write("Nome : ");
             string nome = Console.ReadLine();
 
-            foreach (Usuario x in Usuarios)// Verifica se o usuário existe na cadastro
-                if (nome.ToUpper() == x._Nome.ToUpper())
-                {
-                    existe = true;
-                    Console.WriteLine("\nUsuário já existente.");
+            sts = Novo.VerificaNome(nome, Usuarios);
 
-                    break;
-                }
-
-            if (!existe)
+            if (sts)
             {
                 Novo._Nome = nome;
                 break;
@@ -84,7 +92,7 @@ public class OperaçoesUsuario
             Console.WriteLine("\nTentar novamente? (Enter confirma)");
         } while (Console.ReadKey(true).Key == ConsoleKey.Enter);
 
-        if (!existe)// Nome de usuário aprovado
+        if (sts)
         {
             do // Loop inserção de senha
             {
@@ -108,8 +116,10 @@ public class OperaçoesUsuario
 
             } while (Console.ReadKey(true).Key == ConsoleKey.Enter);
         }
+
         return null;
     }
+
     public string Login()
     {
         do // Loop 
