@@ -5,7 +5,7 @@ public class Favoritos
     public void AdicionarNaLista(Midia midiaNova)
     {
         bool MidiaExiste = false;
-      
+
         // Verificação da existencia da midia na lista de favoritos
         foreach (Midia m in listaFavoritos)
             if (m.Nome == midiaNova.Nome)
@@ -26,7 +26,7 @@ public class Favoritos
         foreach (Midia m in listaFavoritos)
             Console.WriteLine(m);
     }
-  
+
     // Função count
     public int QtdFavoritos() { return listaFavoritos.Count; }
 
@@ -41,7 +41,7 @@ public class Favoritos
 
         return false;
     }
-    
+
     public void RemoverFavoritos() { listaFavoritos.Clear(); }
 
     public Midia BuscarPorNome(string nome)
