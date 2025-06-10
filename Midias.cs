@@ -1,4 +1,3 @@
-
 class Midia
 {
     public string Nome { get; set; }
@@ -17,6 +16,7 @@ class Midia
         return $"{Nome} ({AnoLancamento}) - Gênero: {Genero}";
     }
 }
+
 class Filme : Midia
 {
     public double Duracao { get; set; }
@@ -34,6 +34,7 @@ class Filme : Midia
         return "[Filme] - " + base.ToString() + $", Duração: {Duracao} min, Diretor: {Diretor}";
     }
 }
+
 class Serie : Midia
 {
     public double Duracao { get; set; }
