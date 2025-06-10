@@ -218,7 +218,7 @@ public class Menu
                     }
                     break;
                 case 6: // Sair
-                    Console.Write("\nFinalizando sessão.");
+                    Console.Write("\nFinalizando programa.");
                     for (int i = 0; i < 4; i++)
                     {
                         Thread.Sleep(400);
