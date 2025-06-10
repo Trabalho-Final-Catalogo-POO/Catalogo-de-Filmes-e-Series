@@ -1,7 +1,4 @@
 using System;
-using System.Collections.Generic;
-using System.Runtime.Intrinsics.Arm;
-using static OperaçoesUsuario;
 
 class Program
 {
@@ -24,7 +21,7 @@ class Program
 
                         if (Login != null)
                         {
-                            Usuario usuario = Usuarios.BuscarUsuario(Login);
+                            OperaçoesUsuario.Usuario usuario = Usuarios.BuscarUsuario(Login);
                             flagMenu = menu.MenuPrincipal(usuario);
                         }
                         if (flagMenu == 1)
@@ -61,4 +58,3 @@ class Program
             }
         } while (Opcao != 3);
     }
-}

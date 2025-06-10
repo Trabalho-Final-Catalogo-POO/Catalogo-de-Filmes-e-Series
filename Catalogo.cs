@@ -1,4 +1,4 @@
-class Catalogo
+public class Catalogo
 {
     private List<Filme> filmes = new List<Filme>();
     private List<Serie> series = new List<Serie>();

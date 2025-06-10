@@ -1,4 +1,4 @@
-class Favoritos
+public class Favoritos
 {
     private List<Midia> listaFavoritos = new List<Midia>();
 

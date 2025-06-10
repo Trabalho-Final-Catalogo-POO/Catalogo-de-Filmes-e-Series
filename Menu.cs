@@ -1,4 +1,4 @@
-class Menu
+public class Menu
 {
     Catalogo catalogo = new Catalogo();
     public int MenuPrincipal(Usuario usuario)
