@@ -21,7 +21,7 @@ class Program
 
                         if (Login != null)
                         {
-                            OperaçoesUsuario.Usuario usuario = Usuarios.BuscarUsuario(Login);
+                            Usuario usuario = Usuarios.BuscarUsuario(Login);
                             flagMenu = menu.MenuPrincipal(usuario);
                         }
                         if (flagMenu == 1)
@@ -58,3 +58,4 @@ class Program
             }
         } while (Opcao != 3);
     }
+}
