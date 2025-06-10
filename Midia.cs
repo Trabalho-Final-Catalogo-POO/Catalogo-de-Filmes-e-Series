@@ -16,7 +16,6 @@ public class Midia
         return $"{Nome} ({AnoLancamento}) - Gênero: {Genero}";
     }
 }
-
 public class Filme : Midia
 {
     public double Duracao { get; set; }
@@ -34,7 +33,6 @@ public class Filme : Midia
         return "[Filme] - " + base.ToString() + $", Duração: {Duracao} min, Diretor: {Diretor}";
     }
 }
-
 public class Serie : Midia
 {
     public double Duracao { get; set; }
