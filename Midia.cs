@@ -1,8 +1,3 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Runtime.Intrinsics.Arm;
-using static OperaçoesUsuario;
-
 public class Midia
 {
     public string Nome { get; set; }
