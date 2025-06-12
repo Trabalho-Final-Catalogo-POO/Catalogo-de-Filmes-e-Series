@@ -101,7 +101,14 @@ public class Usuario
             return false;
         }
 
-        
+        OperaçoesUsuario operaçoesUsuario = new OperaçoesUsuario();
+        Usuario usuario = operaçoesUsuario.BuscarUsuario(Nome);
+
+        if (usuario != null)
+        {
+            Console.WriteLine("O nome de usuário já existe");
+            return false;
+        }
 
         return true;
     }

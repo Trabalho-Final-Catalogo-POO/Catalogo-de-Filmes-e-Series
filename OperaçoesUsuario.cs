@@ -54,16 +54,19 @@ public class OperaçoesUsuario
 
             sts = Novo.VerificaNome(nome);
 
-            Console.Write("Senha: ");
-            string senha = Console.ReadLine();
-
-            if (Novo.VerificaSenha(senha))
+            if (sts)
             {
-                Novo._Senha = senha;
-                CadastrarUsuarioBD(Novo);
-                Usuarios.Add(Novo);
+                Console.Write("Senha: ");
+                string senha = Console.ReadLine();
 
-                return true;
+                if (Novo.VerificaSenha(senha))
+                {
+                    Novo._Senha = senha;
+                    CadastrarUsuarioBD(Novo);
+                    Usuarios.Add(Novo);
+
+                    return true;
+                }
             }
             else
                 Console.WriteLine("\nTentar novamente? (Enter confirma)");
