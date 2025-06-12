@@ -619,6 +619,7 @@ public class Menu
                             Console.ReadKey(true);
                         }
                     }
+
                     catch (Exception e)
                     {
                         Console.WriteLine($"Erro: {e}");
@@ -649,9 +650,33 @@ public class Menu
                     }
                     break;
                 case 4: // REMOVER
-                    foreach (Usuario x in Usuarios.Usuarios)
-                        Console.WriteLine(x._Nome);
-                    Console.ReadKey(true);
+                        // foreach (Usuario x in Usuarios.Usuarios)
+                        //     Console.WriteLine(x._Nome);
+                        // Console.ReadKey(true);
+
+                    try
+                    {
+                        if (bancoDeDados.Conexao.State != System.Data.ConnectionState.Open)
+                            bancoDeDados.Conexao.Open();
+                        using MySqlCommand usuarios = new("SELECT NomeUsuario from Usuarios", bancoDeDados.Conexao);
+                        using MySqlDataReader leitor = usuarios.ExecuteReader();
+
+                        while (leitor.Read())
+                        {
+                            Console.WriteLine(leitor.GetString("NomeUsuario"));
+                            Console.ReadKey(true);
+                        }
+                    }
+
+                    catch (Exception e)
+                    {
+                        Console.WriteLine($"Erro: {e}");
+                    }
+
+                    finally
+                    {
+                        bancoDeDados.Conexao.Close();
+                    }
 
                     break;
                 default:
