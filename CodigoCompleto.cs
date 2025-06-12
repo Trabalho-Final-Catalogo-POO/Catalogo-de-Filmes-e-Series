@@ -1,4 +1,5 @@
 using System;
+using System.Runtime.CompilerServices;
 using MySql.Data.MySqlClient;
 using Mysqlx.Crud;
 
@@ -7,70 +8,19 @@ class Program
     static void Main(string[] args)
     {
         Menu menu = new Menu();
-        OperaçoesUsuario Usuarios = new OperaçoesUsuario();
-        int Opcao;
-        int flagMenu = 0;
-        do
-        {
-            Opcao = menu.MenuInicial();
-
-            switch (Opcao)
-            {
-                case 1: // Fazer login
-                    if (Usuarios.QtdUsuarios() > 0)
-                    {
-                        string Login = Usuarios.Login();
-
-                        if (Login != null)
-                        {
-                            Usuario usuario = Usuarios.BuscarUsuario(Login);
-                            flagMenu = menu.MenuPrincipal(usuario);
-                        }
-                        if (flagMenu == 1)
-                            Opcao = 3;
-                    }
-                    else
-                    {
-                        Console.WriteLine("Não há usuários cadastrados.");
-                        Console.ReadKey(true);
-                    }
-                    break;
-                case 2: // Fazer cadastro
-                    if (Usuarios.Cadastrar() != null)
-                        Console.WriteLine("\nCadastro realizado com sucesso.");
-
-                    else
-                        Console.WriteLine("\nCadastramento cancelado.");
-
-                    Console.ReadKey(true);
-
-                    break;
-                case 3: // Finalizar programa
-                    Console.Write("\nFinalizando o programa.");
-                    for (int i = 0; i < 4; i++)
-                    {
-                        Thread.Sleep(400);
-                        Console.Write(".");
-                    }
-                    break;
-                default:
-                    Console.WriteLine("Opção inválida.");
-                    Console.ReadKey(true);
-                    break;
-            }
-        } while (Opcao != 3);
+        menu.MenuLogin();
     }
 }
 public class Menu
 {
     Catalogo catalogo = new Catalogo();
-    public int MenuPrincipal(Usuario usuario)
+    public int MenuPrincipal(Usuario usuario, OperaçoesUsuario usuarios)
     {
         int opçao;
 
         do
         {
-            opçao = MenuOpcoes(usuario._Nome);
+            opçao = OpcoesMenuPrincipal(usuario._Nome);
             switch (opçao)
             {
                 case 1: // Cadastrar filme
@@ -91,12 +41,12 @@ public class Menu
                     break;
                 case 3: // Favoritar
                     if (catalogo.QtdMidias() > 0) // Se existirem series ou filmes
-                        if (usuario.favoritos.QtdFavoritos() < (catalogo.QtdMidias())) // se ainda existirem series a serem favoritadas
+                        if (usuario.QtdFavoritos() < (catalogo.QtdMidias())) // se ainda existirem series a serem favoritadas
                         {
                             Console.Clear();
 
                             Console.WriteLine($"\n{{{catalogo.QtdSeries() + catalogo.QtdFilmes()}}} midia(s) cadastrada(s) no catalogo,");
-                            Console.WriteLine($"\n{{{usuario.favoritos.QtdFavoritos()}}} favoritado(s).");
+                            Console.WriteLine($"\n{{{usuario.QtdFavoritos()}}} favoritado(s).");
                             Console.WriteLine("\nDeseja exibir as series e filmes para favoritar ? (Enter confirma)");
 
                             if (Console.ReadKey(true).Key == ConsoleKey.Enter) // Exibe series e fimes se houverem
@@ -116,9 +66,9 @@ public class Menu
                                     catalogo.exibirSeries();
                                     Console.WriteLine("");
                                 }
-                                if (usuario.favoritos.QtdFavoritos() > 0)
+                                if (usuario.QtdFavoritos() > 0)
                                 {
-                                    usuario.favoritos.ExibirFavoritos();
+                                    usuario.ExibirFavoritos();
                                     Console.WriteLine("");
                                 }
                             }
@@ -135,9 +85,9 @@ public class Menu
 
                                 if (midiafavoritada != null)
                                 {
-                                    usuario.favoritos.AdicionarNaLista(midiafavoritada);
+                                    usuario.AdicionarFavorito(midiafavoritada);
 
-                                    if ((catalogo.QtdMidias()) <= usuario.favoritos.QtdFavoritos()) // Se todas a series foram favoritadas encerra o codigo
+                                    if ((catalogo.QtdMidias()) <= usuario.QtdFavoritos()) // Se todas a series foram favoritadas encerra o codigo
                                     {
                                         Console.WriteLine("Não há mais midias a serem favoritadas.");
                                         Console.ReadKey(true);
@@ -158,14 +108,14 @@ public class Menu
                             Console.Clear();
 
                             Console.WriteLine($"\n{{{catalogo.QtdSeries() + catalogo.QtdFilmes()}}} midia(s) cadastrada(s) no catalogo,");
-                            Console.WriteLine($"\n{{{usuario.favoritos.QtdFavoritos()}}} favoritado(s).");
+                            Console.WriteLine($"\n{{{usuario.QtdFavoritos()}}} favoritado(s).");
                             Console.WriteLine("\nNão há series ou filmes a serem favoritadas.");
 
                             Console.WriteLine("Deseja exibir as series e filmes favoritados ? (Enter confirma)");
 
                             if (Console.ReadKey(true).Key == ConsoleKey.Enter) // Exibe series e fimes favoritados
                             {
-                                usuario.favoritos.ExibirFavoritos();
+                                usuario.ExibirFavoritos();
                                 Console.ReadKey(true);
                             }
                         }
@@ -185,20 +135,20 @@ public class Menu
                         {
                             Console.Clear();
 
-                            Console.WriteLine("  Catalogo Filmes e Series");
+                            Console.WriteLine("  Menu Exibir");
                             Console.WriteLine("----------------------------");
-                            Console.WriteLine(" 1 - Exibir filmes");
-                            Console.WriteLine(" 2 - Exibir series");
+                            Console.WriteLine($" 1 - Exibir filmes {{{catalogo.QtdFilmes()}}}");
+                            Console.WriteLine($" 2 - Exibir series {{{catalogo.QtdSeries()}}}");
                             if (catalogo.QtdFilmes() > 0 && catalogo.QtdSeries() > 0) // Existem series e filmes cadastrados
                             {
                                 Existem = true;
-                                Console.WriteLine(" 3 - Exibir todos");
-                                Console.WriteLine(" 4 - Exibir favoritos");
+                                Console.WriteLine($" 3 - Exibir todos {{{catalogo.QtdMidias()}}}");
+                                Console.WriteLine($" 4 - Exibir favoritos {{{usuario.QtdFavoritos()}}}");
                                 Console.WriteLine(" 5 - voltar\n");
                             }
                             else // Não existem series e filmes cadastrados, logo menos 1 opçao
                             {
-                                Console.WriteLine(" 3 - Exibir favoritos");
+                                Console.WriteLine($" 3 - Exibir favoritos {{{usuario.QtdFavoritos()}}}");
                                 Console.WriteLine(" 4 - voltar\n");
                             }
                             escolha = int.Parse(Console.ReadLine());
@@ -240,10 +190,10 @@ public class Menu
                             }
                             else if (escolha == 4)
                             {
-                                if (usuario.favoritos.QtdFavoritos() > 0)
+                                if (usuario.QtdFavoritos() > 0)
                                 {
                                     Console.Clear();
-                                    usuario.favoritos.ExibirFavoritos();
+                                    usuario.ExibirFavoritos();
                                 }
                                 else
                                     Console.WriteLine("\n Não há series ou filmes favoritados.");
@@ -282,7 +232,7 @@ public class Menu
                         {
                             Console.Clear();
 
-                            Console.WriteLine("\n  Menu remover");
+                            Console.WriteLine("\n  Menu Remover");
                             Console.WriteLine("----------------------------");
                             Console.WriteLine(" 1 - Remover midia");
                             Console.WriteLine(" 2 - Remover todos os filmes");
@@ -308,24 +258,20 @@ public class Menu
                                         if (MidiaRemovida != null)
                                         {
                                             Console.WriteLine("\nMidia Encontrada.");
-                                            Console.Write("Removendo.");
-                                            for (int i = 0; i < 3; i++)
-                                            {
-                                                Thread.Sleep(300);
-                                                Console.Write(".");
-                                            }
+                                            MensagemAnimada("Removendo");
 
-                                            if (catalogo.RemoveMidia(MidiaRemovida))
+                                            if (catalogo.RemoveMidia(MidiaRemovida, usuarios))
                                             {
-                                                Console.WriteLine($"{MidiaRemovida} Removido(a) com sucesso.");
-                                                Console.WriteLine("Remover outra?(Enter confima)");
+                                                Console.WriteLine($"\n{MidiaRemovida}\nRemovido(a) com sucesso.");
+                                                Console.WriteLine("\nRemover outra?(Enter confima)");
                                             }
                                             else
                                                 Console.WriteLine($"Erro ao remover {MidiaRemovida}.");
                                         }
                                         else
                                         {
-                                            Console.WriteLine($"\n\"{Midia}\" não encontrada.");
+                                            Console.WriteLine("");
+                                            Console.WriteLine(Midia == null ? "Midia com nome vazio!" : $"\"{Midia}\" não encontrada.");
                                             Console.WriteLine("Tentar novamente?(Enter confirma)");
                                         }
                                     } while (Console.ReadKey(true).Key == ConsoleKey.Enter);
@@ -361,7 +307,7 @@ public class Menu
                                             }
                                             Console.WriteLine("");
 
-                                            catalogo.RemoverFilmes();
+                                            catalogo.RemoverFilmes(usuarios);
 
                                             Console.WriteLine("Filmes removidos.");
                                             Console.ReadKey(true);
@@ -407,7 +353,7 @@ public class Menu
                                             }
                                             Console.WriteLine("");
 
-                                            catalogo.RemoverSeries();
+                                            catalogo.RemoverSeries(usuarios);
 
                                             Console.WriteLine("Series removidas.");
                                             Console.ReadKey(true);
@@ -453,8 +399,8 @@ public class Menu
                                             }
                                             Console.WriteLine("");
 
-                                            catalogo.RemoverFilmes();
-                                            catalogo.RemoverSeries();
+                                            catalogo.RemoverFilmes(usuarios);
+                                            catalogo.RemoverSeries(usuarios);
 
                                             Console.WriteLine("Midias removidas.");
                                             Console.ReadKey(true);
@@ -478,7 +424,7 @@ public class Menu
                             }
                             else if (escolha == 5) // Remove favorito
                             {
-                                if (usuario.favoritos.QtdFavoritos() > 0)
+                                if (usuario.QtdFavoritos() > 0)
                                     do
                                     {
                                         Console.Clear();
@@ -486,7 +432,7 @@ public class Menu
                                         Console.Write("\nInforme o nome da midia a ser removida dos favoritos: ");
                                         string Midia = Console.ReadLine();
 
-                                        Midia FavoritoRemover = usuario.favoritos.BuscarPorNome(Midia);
+                                        Midia FavoritoRemover = usuario.BuscarFavoritoPorNome(Midia);
 
                                         if (FavoritoRemover != null)
                                         {
@@ -498,10 +444,10 @@ public class Menu
                                                 Console.Write(".");
                                             }
 
-                                            if (usuario.favoritos.RemoverFavorito(FavoritoRemover))
+                                            if (usuario.RemoverFavorito(FavoritoRemover))
                                             {
-                                                Console.WriteLine($"{FavoritoRemover} Removido(a) com sucesso.");
-                                                Console.WriteLine("Remover outra?(Enter confima)");
+                                                Console.WriteLine($"\n{FavoritoRemover} \nRemovido(a) com sucesso.");
+                                                Console.WriteLine("\nRemover outra?(Enter confima)");
                                             }
                                             else
                                                 Console.WriteLine($"Erro ao remover {FavoritoRemover}.");
@@ -520,7 +466,7 @@ public class Menu
                             }
                             else if (escolha == 6) // Remove todos favoritos
                             {
-                                if (usuario.favoritos.QtdFavoritos() > 0)
+                                if (usuario.QtdFavoritos() > 0)
                                 {
                                     bool Repetir = false;
                                     do
@@ -542,7 +488,7 @@ public class Menu
                                             }
                                             Console.WriteLine("");
 
-                                            usuario.favoritos.RemoverFavoritos();
+                                            usuario.RemoverFavoritos();
 
                                             Console.WriteLine("Favoritos removidos.");
                                             Console.ReadKey(true);
@@ -566,12 +512,7 @@ public class Menu
                             }
                             else if (escolha == 7) // Voltar
                             {
-                                Console.Write("\nVoltando.");
-                                for (int i = 0; i < 3; i++)
-                                {
-                                    Thread.Sleep(200);
-                                    Console.Write(".");
-                                }
+                                MensagemAnimada("\nVoltando.", 3, 200);
                             }
                             else
                             {
@@ -588,37 +529,32 @@ public class Menu
                     }
                     break;
                 case 6: // Saindo do usuário
-                    Console.Write("\nVoltando ao menu de login.");
-                    for (int i = 0; i < 4; i++)
-                    {
-                        Thread.Sleep(400);
-                        Console.Write(".");
-                    }
+                    MensagemAnimada("\nVoltando ao menu de login.");
                     break;
                 case 7: // Sair
-                    Console.Write("\nFinalizando programa.");
-                    for (int i = 0; i < 4; i++)
-                    {
-                        Thread.Sleep(400);
-                        Console.Write(".");
-                    }
+                    MensagemAnimada("\nFinalizando programa.");
+
                     return 1;
                 case 8: // Teste placeholder
                     catalogo.cadastrarFilme("a grande viagem", "comedia", "pedro", 1954, 154);
                     catalogo.cadastrarFilme("mochileiro", "suspense", "unknown", 2000, 210);
-                    catalogo.cadastrarSerie("Doctor house", "Medica", "john albert", 1950, 5, 402, 40);
-                    catalogo.cadastrarSerie("The flash", "ficçao", "Jefreey", 2011, 9, 345, 45);
+                    catalogo.cadastrarSerie("Doctor house", "Medica", 1950, 5, 402, 40);
+                    catalogo.cadastrarSerie("The flash", "ficçao", 2011, 9, 345, 45);
 
                     catalogo.exibirFilmes();
                     catalogo.exibirSeries();
 
                     Console.Write("Adicionando o primeiro filme e serie nos favoritos");
 
-                    usuario.favoritos.AdicionarNaLista(catalogo.BuscarPorNome("a grande viagem"));
-                    usuario.favoritos.AdicionarNaLista(catalogo.BuscarPorNome("Doctor house"));
+                    usuario.AdicionarFavorito(catalogo.BuscarPorNome("a grande viagem"));
+                    usuario.AdicionarFavorito(catalogo.BuscarPorNome("Doctor house"));
                     Console.WriteLine("Mídia adicionada aos favoritos!");
 
-                    usuario.favoritos.ExibirFavoritos();
+                    usuario.ExibirFavoritos();
+
+                    BancoDeDados BD = new();
+
+                    BD.SELECT("midias", "nome");
 
                     Console.ReadKey(true);
                     break;
@@ -631,7 +567,7 @@ public class Menu
 
         return 0; // Menu executado normalmente e finalizado pela opção 6
     }
-    public int MenuOpcoes(string Usuario)
+    public int OpcoesMenuPrincipal(string Usuario)
     {
         Console.Clear();
 
@@ -653,7 +589,69 @@ public class Menu
         else
             return -1;
     }
-    public int MenuInicial()
+    public void MenuLogin()
+    {
+        OperaçoesUsuario Usuarios = new OperaçoesUsuario();
+        int Opcao;
+        int flagMenu = 0;
+        do
+        {
+            Opcao = OpcoesMenuLogin();
+
+            switch (Opcao)
+            {
+                case 1: // Fazer login
+                    if (Usuarios.QtdUsuarios() > 0)
+                    {
+                        string Login = Usuarios.Login();
+
+                        if (Login != null)
+                        {
+                            Usuario usuario = Usuarios.BuscarUsuario(Login);
+                            flagMenu = MenuPrincipal(usuario, Usuarios);
+                        }
+                        if (flagMenu == 1)
+                            Opcao = 3;
+                    }
+                    else
+                    {
+                        Console.WriteLine("Não há usuários cadastrados.");
+                        Console.ReadKey(true);
+                    }
+                    break;
+                case 2: // Fazer cadastro
+                    if (Usuarios.CadastrarUsuario())
+                        Console.WriteLine("\nCadastro realizado com sucesso.");
+
+                    else
+                        Console.WriteLine("\nCadastramento cancelado.");
+
+                    Console.WriteLine("(Pressione qualquer botão para retornar)");
+                    Console.ReadKey(true);
+
+                    break;
+                case 3: // Finalizar programa
+                    Console.Write("\nFinalizando o programa.");
+                    for (int i = 0; i < 4; i++)
+                    {
+                        Thread.Sleep(400);
+                        Console.Write(".");
+                    }
+                    break;
+                case 4: // REMOVER
+                    foreach (Usuario x in Usuarios.Usuarios)
+                        Console.WriteLine(x._Nome);
+                    Console.ReadKey(true);
+
+                    break;
+                default:
+                    Console.WriteLine("Opção inválida.");
+                    Console.ReadKey(true);
+                    break;
+            }
+        } while (Opcao != 3);
+    }
+    public int OpcoesMenuLogin()
     {
         Console.Clear();
 
@@ -663,29 +661,88 @@ public class Menu
         Console.WriteLine(" 1 - Login");
         Console.WriteLine(" 2 - Cadastrar");
         Console.WriteLine(" 3 - Sair");
+        Console.WriteLine(" 4 - TesteListarUsuarios");
         Console.Write("\nEscolha uma opção: ");
 
         return int.Parse(Console.ReadLine());
     }
+    public void MensagemAnimada(string Mensagem, int pontos = 4, int tempo = 400)
+    {
+        Console.Write(Mensagem);
+        for (int i = 0; i < pontos; i++)
+        {
+            Thread.Sleep(tempo);
+            Console.Write(".");
+        }
+        Console.WriteLine("");
+    }
 }
 public class Catalogo
 {
+    BancoDeDados bancoDeDados = new();
     private List<Filme> filmes = new List<Filme>();
     private List<Serie> series = new List<Serie>();
+    public Catalogo()
+    {
+        CarregarMidiasBD();
+    }
+    private void CarregarMidiasBD()
+    {
+        if (bancoDeDados.Conexao.State != System.Data.ConnectionState.Open)
+            bancoDeDados.Conexao.Open();
 
+        string query = @"SELECT  m.id, m.nome, m.genero, m.tipo, m.anoLancamento,
+                f.duracao AS filme_duracao, f.diretor,
+                s.duracao AS serie_duracao, s.temporadas, s.qntEpisodios
+                    FROM Midias m
+                    LEFT JOIN Filmes f ON m.id = f.MidiaId
+                    LEFT JOIN Series s ON m.id = s.MidiaId";
+
+        using MySqlCommand Comando = new(query, bancoDeDados.Conexao);
+        using MySqlDataReader Leitor = Comando.ExecuteReader();
+
+        while (Leitor.Read())
+        {
+            string nome = Leitor.GetString("Nome");
+            string genero = Leitor.GetString("Genero");
+            int anolancamento = Leitor.GetInt32("AnoLancamento");
+            string tipo = Leitor.GetString("tipo");
+            int Id = Leitor.GetInt32("id");
+
+            if (tipo.ToLower() == "filme")
+            {
+                double duracao = Leitor.GetDouble("filme_duracao");
+                string diretor = Leitor.GetString("diretor");
+
+                Filme novo = new(nome, genero, anolancamento, Id, duracao, diretor);
+                filmes.Add(novo);
+            }
+            else if (tipo.ToLower() == "serie")
+            {
+                double duracao = Leitor.GetDouble("serie_duracao");
+                int QtdTemporadas = Leitor.GetInt32("temporadas");
+                int QtdEpisodios = Leitor.GetInt32("QntEpisodios");
+
+                Serie nova = new(nome, genero, anolancamento, Id, duracao, QtdTemporadas, QtdEpisodios);
+                series.Add(nova);
+            }
+        }
+        bancoDeDados.Conexao.Close();
+    }
+
+    // Manipulação de Filmes
     public void cadastrarFilme()
     {
         Console.Clear();
         string nome, genero, diretor;
         int anoLancamento;
         double duracao;
-        bool FilmeNovo = true;
 
         Console.WriteLine("\n   Cadastrar Filme");
         Console.WriteLine("-----------------------------------");
         Console.WriteLine("Digite os dados do filme.");
 
-        Console.Write("Nome: ");
+        Console.Write("\nNome: ");
         nome = Console.ReadLine();
 
         Console.Write("Gênero: ");
@@ -702,15 +759,9 @@ public class Catalogo
 
         Filme novo = new Filme(nome, genero, anoLancamento, duracao, diretor);
 
-        foreach (Filme f in filmes) // Procura na lista de filmes 
-            if (f.Nome == novo.Nome)
-                FilmeNovo = false;
-        foreach (Serie s in series) // Procura na lista de series 
-            if (s.Nome == novo.Nome)
-                FilmeNovo = false;
-
-        if (FilmeNovo)
+        if (BuscarPorNome(novo.Nome) == null)
         {
+            BDCadastrarFilme(novo);
             filmes.Add(novo);
             Console.WriteLine("\nFilme cadastrado com sucesso!");
             Console.WriteLine("-----------------------------------\n");
@@ -720,98 +771,41 @@ public class Catalogo
     }
     public void cadastrarFilme(string nome, string genero, string diretor, int anoLancamento, double duracao)
     {
-        bool FilmeNovo = true;
         Filme novo = new Filme(nome, genero, anoLancamento, duracao, diretor);
 
-        foreach (Filme f in filmes) // Procura na lista de filmes 
-            if (f.Nome == novo.Nome)
-                FilmeNovo = false;
-
-        foreach (Serie s in series) // Procura na lista de series 
-            if (s.Nome == novo.Nome)
-                FilmeNovo = false;
-
-        if (FilmeNovo)
+        if (BuscarPorNome(novo.Nome) == null)
         {
+            BDCadastrarFilme(novo);
             filmes.Add(novo);
             Console.WriteLine("\nFilme cadastrado com sucesso!");
         }
         else
             Console.WriteLine("\nFilme ou Serie já cadastrado com mesmo nome.\n");
     }
-
-    public void cadastrarSerie()
+    private void BDCadastrarFilme(Filme filme)
     {
-        Console.Clear();
-        string nome, genero;
-        int anoLancamento, temporadas, qntEpisodios;
-        double duracao;
-        bool SerieNova = true;
+        if (bancoDeDados.Conexao.State != System.Data.ConnectionState.Open)
+            bancoDeDados.Conexao.Open();
 
-        Console.WriteLine("\n   Cadastrar Série: ");
-        Console.WriteLine("-----------------------------------");
-        Console.WriteLine("Digite os dados da série.");
+        // Insere a parte midia do filme na tabela midias
+        using MySqlCommand ComandoMidia = new($"INSERT INTO Midias (nome,genero,tipo,anolancamento) values (@nome,@genero,'filme',@anoLancamento)", bancoDeDados.Conexao);
+        ComandoMidia.Parameters.AddWithValue("@nome", filme.Nome);
+        ComandoMidia.Parameters.AddWithValue("@genero", filme.Genero);
+        ComandoMidia.Parameters.AddWithValue("@anoLancamento", filme.AnoLancamento);
+        ComandoMidia.ExecuteNonQuery();
 
-        Console.Write("Nome: ");
-        nome = Console.ReadLine();
+        long MidiaId = ComandoMidia.LastInsertedId; // id da midia para inserir os dados na tabela filmes
+        filme.Id = MidiaId;
 
-        Console.Write("Gênero: ");
-        genero = Console.ReadLine();
+        // Insere o filme na tabela filmes
+        using MySqlCommand ComandoFilme = new($"INSERT INTO Filmes (MidiaId,Duracao,Diretor) values (@midiaId,@duracao,@diretor)", bancoDeDados.Conexao);
+        ComandoFilme.Parameters.AddWithValue("@midiaId", filme.Id);
+        ComandoFilme.Parameters.AddWithValue("@duracao", filme.Duracao);
+        ComandoFilme.Parameters.AddWithValue("@diretor", filme.Diretor);
+        ComandoFilme.ExecuteNonQuery();
 
-        Console.Write("Ano de lançamento: ");
-        anoLancamento = int.Parse(Console.ReadLine());
-
-        Console.Write("Duração média por episódio: ");
-        duracao = double.Parse(Console.ReadLine());
-
-        Console.Write("Quantidade de temporadas: ");
-        temporadas = int.Parse(Console.ReadLine());
-
-        Console.Write("Quantidade de episódios: ");
-        qntEpisodios = int.Parse(Console.ReadLine());
-
-        Serie nova = new Serie(nome, genero, anoLancamento, duracao, temporadas, qntEpisodios);
-
-        foreach (Serie s in series) // Procura na lista de series 
-            if (s.Nome == nova.Nome)
-                SerieNova = false;
-
-        foreach (Filme f in filmes) // Procura na lista de filmes 
-            if (f.Nome == nova.Nome)
-                SerieNova = false;
-
-        if (SerieNova)
-        {
-            series.Add(nova);
-            Console.WriteLine("\nSérie cadastrada com sucesso!");
-            Console.WriteLine("-----------------------------------\n");
-        }
-        else
-            Console.WriteLine("\nFilme ou Serie já cadastrado com mesmo nome.\n");
-
+        bancoDeDados.Conexao.Close();
     }
-    public void cadastrarSerie(string nome, string genero, string diretor, int anoLancamento, int temporadas, int qntEpisodios, double duracao)
-    {
-        bool SerieNova = true;
-        Serie nova = new Serie(nome, genero, anoLancamento, duracao, temporadas, qntEpisodios);
-
-        foreach (Serie s in series) // Procura na lista de series 
-            if (s.Nome == nova.Nome)
-                SerieNova = false;
-
-        foreach (Filme f in filmes) // Procura na lista de filmes 
-            if (f.Nome == nova.Nome)
-                SerieNova = false;
-
-        if (SerieNova)
-        {
-            series.Add(nova);
-            Console.WriteLine("\nSérie cadastrada com sucesso!");
-        }
-        else
-            Console.WriteLine("\nFilme ou Serie já cadastrado com mesmo nome.\n");
-    }
-
     public void exibirFilmes()
     {
         Console.WriteLine("================ FILMES ================\n");
@@ -820,7 +814,101 @@ public class Catalogo
 
         Console.WriteLine();
     }
+    public void RemoverFilmes(OperaçoesUsuario operaçoes)
+    {
+        if (bancoDeDados.Conexao.State != System.Data.ConnectionState.Open)
+            bancoDeDados.Conexao.Open();
 
+        using MySqlCommand Comando = new("Delete FROM Midias WHERE tipo='filme'", bancoDeDados.Conexao);
+        Comando.ExecuteNonQuery();
+        bancoDeDados.Conexao.Close();
+
+        operaçoes.AtualizarUsuarios();
+
+        filmes.Clear();
+    }
+
+    // Manipulação de Series
+    public void cadastrarSerie()
+    {
+        Console.Clear();
+        string nome, genero;
+        int anoLancamento, temporadas, qntEpisodios;
+        double duracao;
+
+        Console.WriteLine("\n   Cadastrar Série: ");
+        Console.WriteLine("-----------------------------------");
+        Console.WriteLine("Digite os dados da série.");
+
+        Console.Write("\nNome: ");
+        nome = Console.ReadLine();
+
+        Console.Write("Gênero: ");
+        genero = Console.ReadLine();
+
+        Console.Write("Ano de lançamento: ");
+        anoLancamento = int.Parse(Console.ReadLine());
+
+        Console.Write("Tempo médio de episódio (em minutos): ");
+        duracao = double.Parse(Console.ReadLine());
+
+        Console.Write("Quantidade de Temporadas: ");
+        temporadas = int.Parse(Console.ReadLine());
+
+        Console.Write("Quantidade de Episódios (Total): ");
+        qntEpisodios = int.Parse(Console.ReadLine());
+
+        Serie nova = new Serie(nome, genero, anoLancamento, duracao, temporadas, qntEpisodios);
+
+        if (BuscarPorNome(nova.Nome) == null)
+        {
+            BDCadastrarSerie(nova);
+            series.Add(nova);
+            Console.WriteLine("\nSérie cadastrada com sucesso!");
+            Console.WriteLine("-----------------------------------\n");
+        }
+        else
+            Console.WriteLine("\nFilme ou Serie já cadastrado com mesmo nome.\n");
+    }
+    public void cadastrarSerie(string nome, string genero, int anoLancamento, int temporadas, int qntEpisodios, double duracao)
+    {
+        Serie nova = new Serie(nome, genero, anoLancamento, duracao, temporadas, qntEpisodios);
+
+        if (BuscarPorNome(nova.Nome) == null)
+        {
+            BDCadastrarSerie(nova);
+            series.Add(nova);
+            Console.WriteLine("\nSérie cadastrada com sucesso!");
+        }
+        else
+            Console.WriteLine("\nFilme ou Serie já cadastrado com mesmo nome.\n");
+    }
+    private void BDCadastrarSerie(Serie serie)
+    {
+        if (bancoDeDados.Conexao.State != System.Data.ConnectionState.Open)
+            bancoDeDados.Conexao.Open();
+
+        // Insere a parte midia da serie na tabela midias
+        using MySqlCommand ComandoMidia = new($"INSERT INTO Midias (nome,genero,tipo,anolancamento) values (@nome,@genero,'serie',@anoLancamento)", bancoDeDados.Conexao);
+        ComandoMidia.Parameters.AddWithValue("@nome", serie.Nome);
+        ComandoMidia.Parameters.AddWithValue("@genero", serie.Genero);
+        ComandoMidia.Parameters.AddWithValue("@anoLancamento", serie.AnoLancamento);
+        ComandoMidia.ExecuteNonQuery();
+
+        long MidiaId = ComandoMidia.LastInsertedId; // id da midia para inserir os dados na tabela series
+        serie.Id = MidiaId;
+
+        // Insere a serie na tabela series
+        using MySqlCommand ComandoSerie = new($"INSERT INTO Series (MidiaId,Duracao,Temporadas,QntEpisodios) values (@midiaId,@duracao,@temporadas,@QtdEps)", bancoDeDados.Conexao);
+        ComandoSerie.Parameters.AddWithValue("@midiaId", serie.Id);
+        ComandoSerie.Parameters.AddWithValue("@duracao", serie.Duracao);
+        ComandoSerie.Parameters.AddWithValue("@temporadas", serie.Temporadas);
+        ComandoSerie.Parameters.AddWithValue("@QtdEps", serie.QntEpisodios);
+
+        ComandoSerie.ExecuteNonQuery();
+
+        bancoDeDados.Conexao.Close();
+    }
     public void exibirSeries()
     {
         Console.WriteLine("================ SÉRIES ================\n");
@@ -829,7 +917,64 @@ public class Catalogo
 
         Console.WriteLine();
     }
+    public void RemoverSeries(OperaçoesUsuario operacoes)
+    {
+        if (bancoDeDados.Conexao.State != System.Data.ConnectionState.Open)
+            bancoDeDados.Conexao.Open();
 
+        using MySqlCommand Comando = new("Delete FROM Midias WHERE tipo = 'serie' ", bancoDeDados.Conexao);
+        Comando.ExecuteNonQuery();
+
+        operacoes.AtualizarUsuarios();
+
+        series.Clear();
+    }
+
+    // Manipulção de midia
+    public bool RemoveMidia(Midia midia, OperaçoesUsuario operacao)
+    {
+        bool Encontrado = false;
+
+        if (midia is Filme)
+        {
+            foreach (Filme F in filmes)
+                if (midia.Nome == F.Nome)
+                {
+                    Encontrado = true;
+                    filmes.Remove(F);
+                    break;
+                }
+        }
+        else if (midia is Serie)
+        {
+            foreach (Serie S in series)
+                if (midia.Nome == S.Nome)
+                {
+                    Encontrado = true;
+                    series.Remove(S);
+                    break;
+                }
+        }
+        else
+            Console.WriteLine("tipo inválido");
+
+        if (Encontrado)
+        {
+            if (bancoDeDados.Conexao.State != System.Data.ConnectionState.Open)
+                bancoDeDados.Conexao.Open();
+
+            using MySqlCommand Comando = new("DELETE FROM Midias WHERE nome=@value", bancoDeDados.Conexao);
+            Comando.Parameters.AddWithValue("@value", midia.Nome);
+            Comando.ExecuteNonQuery();
+            bancoDeDados.Conexao.Close();
+
+            operacao.AtualizarUsuarios();// Garante que a listaFavoritos é igual o banco de dados
+
+            return true;
+        }
+
+        return false;
+    }
     public Midia BuscarPorNome(string nome)
     {
         foreach (Filme f in filmes)
@@ -843,32 +988,15 @@ public class Catalogo
         return null;
     }
 
+    // Funçoes count
     public int QtdFilmes() { return filmes.Count; }
-
     public int QtdSeries() { return series.Count; }
     public int QtdMidias() { return QtdFilmes() + QtdSeries(); }
-
-    public bool RemoveMidia(Midia midia)
-    {
-        List<Midia> Midias = new();
-        Midias.AddRange(filmes);
-        Midias.AddRange(series);
-
-        foreach (Midia m in Midias)
-            if (midia == m)
-            {
-                Midias.Remove(midia);
-                return true;
-            }
-
-        return false;
-    }
-    public void RemoverFilmes() { filmes.Clear(); }
-    public void RemoverSeries() { series.Clear(); }
 }
 public class Midia
 {
-    public BancoDeDados BancoDeDados { get; set; }
+    public BancoDeDados BancoDeDados = new();
+    public long Id { get; set; }
     public string Nome { get; set; }
     public string Genero { get; set; }
     public int AnoLancamento { get; set; }
@@ -879,7 +1007,13 @@ public class Midia
         Genero = genero;
         AnoLancamento = anoLancamento;
     }
-
+    public Midia(string nome, string genero, int anoLancamento, long id)
+    {
+        Nome = nome;
+        Genero = genero;
+        AnoLancamento = anoLancamento;
+        Id = id;
+    }
     public override string ToString()
     {
         return $"{Nome} ({AnoLancamento}) - Gênero: {Genero}";
@@ -891,7 +1025,13 @@ public class Filme : Midia
     public string Diretor { get; set; }
 
     public Filme(string nome, string genero, int anoLancamento, double duracao, string diretor)
-        : base(nome, genero, anoLancamento)
+    : base(nome, genero, anoLancamento)
+    {
+        Duracao = duracao;
+        Diretor = diretor;
+    }
+    public Filme(string nome, string genero, int anoLancamento, long id, double duracao, string diretor)
+       : base(nome, genero, anoLancamento, id)
     {
         Duracao = duracao;
         Diretor = diretor;
@@ -909,7 +1049,14 @@ public class Serie : Midia
     public int QntEpisodios { get; set; }
 
     public Serie(string nome, string genero, int anoLancamento, double duracao, int temporadas, int qntEpisodios)
-        : base(nome, genero, anoLancamento)
+    : base(nome, genero, anoLancamento)
+    {
+        Duracao = duracao;
+        Temporadas = temporadas;
+        QntEpisodios = qntEpisodios;
+    }
+    public Serie(string nome, string genero, int anoLancamento, long id, double duracao, int temporadas, int qntEpisodios)
+    : base(nome, genero, anoLancamento, id)
     {
         Duracao = duracao;
         Temporadas = temporadas;
@@ -921,63 +1068,9 @@ public class Serie : Midia
         return "[Serie] - " + base.ToString() + $", {Temporadas} temporadas, {QntEpisodios} episódios, Duração média: {Duracao} min";
     }
 }
-public class Favoritos
-{
-    private List<Midia> listaFavoritos = new List<Midia>();
-
-    public void AdicionarNaLista(Midia midiaNova)
-    {
-        bool MidiaExiste = false;
-
-        // Verificação da existencia da midia na lista de favoritos
-        foreach (Midia m in listaFavoritos)
-            if (m.Nome == midiaNova.Nome)
-                MidiaExiste = true;
-
-        if (!MidiaExiste)
-        {
-            listaFavoritos.Add(midiaNova);
-            Console.WriteLine($"'{midiaNova.Nome}' foi adicionado aos favoritos.");
-        }
-        else
-            Console.WriteLine($"{midiaNova} \nJÁ EXISTE NOS FAVORITOS!!");
-    }
-
-    public void ExibirFavoritos()
-    {
-        Console.WriteLine("========== Lista de Favoritos ==========\n");
-        foreach (Midia m in listaFavoritos)
-            Console.WriteLine(m);
-    }
-
-    // Função count
-    public int QtdFavoritos() { return listaFavoritos.Count; }
-
-    public bool RemoverFavorito(Midia midia)
-    {
-        foreach (Midia m in listaFavoritos)
-            if (midia == m)
-            {
-                listaFavoritos.Remove(m);
-                return true;
-            }
-
-        return false;
-    }
-
-    public void RemoverFavoritos() { listaFavoritos.Clear(); }
-
-    public Midia BuscarPorNome(string nome)
-    {
-        foreach (Midia m in listaFavoritos)
-            if (m.Nome.Equals(nome, StringComparison.OrdinalIgnoreCase))
-                return m;
-
-        return null;
-    }
-}
 public class Usuario
 {
+    public long Id;
     private string Nome;
     public string _Nome
     {
@@ -998,31 +1091,69 @@ public class Usuario
                 Senha = value;
         }
     }
-    public Favoritos favoritos { get; private set; } = new Favoritos();
-
+    BancoDeDados bancoDeDados = new();
+    private List<Midia> listaFavoritos = new();
     public Usuario() { }
-    public Usuario(string Nome, string Senha)
+    public Usuario(string Nome, string Senha, long Id)
     {
         this.Senha = Senha;
         this.Nome = Nome;
+        this.Id = Id;
+        AtualizaFavoritosComBD();
     }
-    public bool VerificaNome(string Nome, List<Usuario> Usuarios) // Impede que o nome do usuário esteja vazio ou que se repita
+    public void AtualizaFavoritosComBD()
     {
-        if (Nome == "")
+        listaFavoritos.Clear(); // Limpa a lista para recarrega-la com o banco de dados
+
+        if (bancoDeDados.Conexao.State != System.Data.ConnectionState.Open)
+            bancoDeDados.Conexao.Open();
+
+        string query = @" SELECT m.id, m.nome, m.genero, m.tipo, m.anoLancamento,
+                f.duracao AS filme_duracao, f.diretor,
+                s.duracao AS serie_duracao, s.temporadas, s.qntEpisodios
+                    FROM Favoritos fav
+                    JOIN Midias m ON fav.MidiaId = m.id
+                    LEFT JOIN Filmes f ON m.id = f.MidiaId
+                    LEFT JOIN Series s ON m.id = s.MidiaId
+                WHERE fav.UsuarioId = @UsuarioId";
+
+        using MySqlCommand ComandoFavoritos = new(query, bancoDeDados.Conexao);
+        ComandoFavoritos.Parameters.AddWithValue("@UsuarioId", Id);
+
+        using MySqlDataReader LeitorFavoritos = ComandoFavoritos.ExecuteReader();
+
+        while (LeitorFavoritos.Read())
         {
-            Console.WriteLine("\nO usuário não pode ficar vazio.");
-            return false;
-        }
-        foreach (Usuario x in Usuarios)// Verifica se o usuário existe na cadastro
-            if (Nome.ToUpper() == x._Nome.ToUpper())
+            string nome = LeitorFavoritos.GetString("Nome");
+            string genero = LeitorFavoritos.GetString("Genero");
+            int anolancamento = LeitorFavoritos.GetInt32("AnoLancamento");
+            string tipo = LeitorFavoritos.GetString("tipo");
+            int Id = LeitorFavoritos.GetInt32("Id");
+
+            Midia nova = null;
+
+            if (tipo.ToLower() == "filme")
             {
-                Console.WriteLine("\nUsuário já existente.");
+                double duracao = LeitorFavoritos.GetDouble("filme_duracao");
+                string diretor = LeitorFavoritos.GetString("diretor");
 
-                return false;
+                nova = new Filme(nome, genero, anolancamento, Id, duracao, diretor);
             }
+            else if (tipo.ToLower() == "serie")
+            {
+                double duracao = LeitorFavoritos.GetDouble("serie_duracao");
+                int QtdTemporadas = LeitorFavoritos.GetInt32("temporadas");
+                int QtdEpisodios = LeitorFavoritos.GetInt32("QntEpisodios");
 
-        return true;
+                nova = new Serie(nome, genero, anolancamento, Id, duracao, QtdTemporadas, QtdEpisodios);
+            }
+            if (BuscarFavoritoPorNome(nova.Nome) == null)
+                listaFavoritos.Add(nova);
+        }
+        bancoDeDados.Conexao.Close();
     }
+
+    // Manipulação de atributos de Usuario
     public void NovoNome(string Nome)
     {
         this.Nome = Nome;
@@ -1039,15 +1170,130 @@ public class Usuario
         return false;
     }
     public void AtualizarSenha(string Senha) { this.Senha = Senha; }
+
+    // Manipulação de favoritos
+    public void AdicionarFavorito(Midia midiaNova)
+    {
+        bool MidiaExiste = false;
+
+        // Verificação da existencia da midia na lista de favoritos
+        foreach (Midia m in listaFavoritos)
+            if (m.Nome == midiaNova.Nome)
+                MidiaExiste = true;
+
+        if (!MidiaExiste)
+        {
+            AdicionarFavoritoBD(midiaNova);
+            listaFavoritos.Add(midiaNova);
+            Console.WriteLine($"'{midiaNova.Nome}' foi adicionado aos favoritos.");
+        }
+        else
+            Console.WriteLine($"{midiaNova} \nJÁ EXISTE NOS FAVORITOS!!");
+    }
+    private void AdicionarFavoritoBD(Midia midia)
+    {
+        if (bancoDeDados.Conexao.State != System.Data.ConnectionState.Open)
+            bancoDeDados.Conexao.Open();
+
+
+        using MySqlCommand Comando = new($"INSERT INTO Favoritos (UsuarioId,MidiaId) VALUES (@UsuarioId, @MidiaId)", bancoDeDados.Conexao);
+        Comando.Parameters.AddWithValue("@UsuarioId", Id);
+        Comando.Parameters.AddWithValue("@MidiaId", midia.Id);
+
+        Comando.ExecuteNonQuery();
+
+        bancoDeDados.Conexao.Close();
+    }
+    public void ExibirFavoritos()
+    {
+        Console.WriteLine("========== Lista de Favoritos ==========\n");
+        foreach (Midia m in listaFavoritos)
+            Console.WriteLine(m);
+    }
+    public bool RemoverFavorito(Midia midia)
+    {
+        foreach (Midia m in listaFavoritos)
+            if (midia == m)
+            {
+                if (bancoDeDados.Conexao.State != System.Data.ConnectionState.Open)
+                    bancoDeDados.Conexao.Open();
+
+
+                using MySqlCommand Comando = new("DELETE FROM Favoritos WHERE UsuarioId = @UsuarioId AND MidiaId = @MidiaId", bancoDeDados.Conexao);
+                Comando.Parameters.AddWithValue("@UsuarioId", Id);
+                Comando.Parameters.AddWithValue("@MidiaId", midia.Id);
+
+                Comando.ExecuteNonQuery();
+
+                bancoDeDados.Conexao.Close();
+
+                listaFavoritos.Remove(m);
+                return true;
+            }
+
+        return false;
+    }
+    public void RemoverFavoritos()
+    {
+        if (bancoDeDados.Conexao.State != System.Data.ConnectionState.Open)
+            bancoDeDados.Conexao.Open();
+
+        using MySqlCommand Comando = new("DELETE FROM Favoritos Where UsuarioId = @UsuarioId", bancoDeDados.Conexao);
+        Comando.Parameters.AddWithValue("@UsuarioId", Id);
+        Comando.ExecuteNonQuery();
+
+        bancoDeDados.Conexao.Close();
+
+        listaFavoritos.Clear();
+    }
+    public Midia BuscarFavoritoPorNome(string nome)
+    {
+        foreach (Midia m in listaFavoritos)
+            if (m.Nome.Equals(nome, StringComparison.OrdinalIgnoreCase))
+                return m;
+
+        return null;
+    }
+    public int QtdFavoritos() { return listaFavoritos.Count; }
 }
 public class OperaçoesUsuario
 {
-    List<Usuario> Usuarios = new List<Usuario>();
+    BancoDeDados bancoDeDados = new BancoDeDados();
+    public List<Usuario> Usuarios = new List<Usuario>();
+    public OperaçoesUsuario() // Inicializa o objeto o preenchendo com usuarios do BD
+    {
+        PreencherUsuariosComBD();
+    }
 
-    public string Cadastrar()
+    // Manipulação de usuario
+    private void PreencherUsuariosComBD()
+    {
+        if (bancoDeDados.Conexao.State != System.Data.ConnectionState.Open)
+            bancoDeDados.Conexao.Open();
+
+        using MySqlCommand ComandoUsuarios = new("SELECT * FROM Usuarios", bancoDeDados.Conexao);
+        using MySqlDataReader LeitorUsuario = ComandoUsuarios.ExecuteReader();
+
+        while (LeitorUsuario.Read())
+        {
+            string nome = LeitorUsuario.GetString("NomeUsuario");
+            string senha = LeitorUsuario.GetString("Senha");
+            int id = LeitorUsuario.GetInt32("Id");
+
+            Usuario novo = new(nome, senha, id);
+            Usuarios.Add(novo);
+        }
+        bancoDeDados.Conexao.Close();
+    }
+    public void AtualizarUsuarios()
+    {
+        foreach (Usuario U in Usuarios) // Atualiza a lista de favoritos de cada usuario
+            U.AtualizaFavoritosComBD();
+    }
+    public bool CadastrarUsuario()
     {
         Usuario Novo = new();
-        bool sts;
+        bool UsuarioValido = false;
         do // Loop inserção de usuário
         {
             Console.Clear();
@@ -1058,18 +1304,19 @@ public class OperaçoesUsuario
             Console.Write("Nome : ");
             string nome = Console.ReadLine();
 
-            sts = Novo.VerificaNome(nome, Usuarios);
-
-            if (sts)
+            if (BuscarUsuario(nome) == null) // Verifica se existe usuário com esse nome
             {
+                UsuarioValido = true;
                 Novo._Nome = nome;
                 break;
             }
+            else
+                Console.WriteLine("\nUsuario já existente.");
 
-            Console.WriteLine("\nTentar novamente? (Enter confirma)");
+            Console.WriteLine("Tentar novamente? (Enter confirma)");
         } while (Console.ReadKey(true).Key == ConsoleKey.Enter);
 
-        if (sts)
+        if (UsuarioValido)
         {
             do // Loop inserção de senha
             {
@@ -1085,21 +1332,36 @@ public class OperaçoesUsuario
                 if (Novo.VerificaSenha(senha))
                 {
                     Novo._Senha = senha;
+                    CadastrarUsuarioBD(Novo);
                     Usuarios.Add(Novo);
-                    return Novo._Nome;
+
+                    return true;
                 }
                 else
                     Console.WriteLine("\nTentar novamente? (Enter confirma)");
 
             } while (Console.ReadKey(true).Key == ConsoleKey.Enter);
         }
-
-        return null;
+        return false;
     }
+    private void CadastrarUsuarioBD(Usuario usuario)
+    {
+        if (bancoDeDados.Conexao.State != System.Data.ConnectionState.Open)
+            bancoDeDados.Conexao.Open();
 
+        using MySqlCommand Comando = new("INSERT INTO Usuarios (NomeUsuario,Senha) VALUES (@nome,@senha)", bancoDeDados.Conexao);
+        Comando.Parameters.AddWithValue("@nome", usuario._Nome);
+        Comando.Parameters.AddWithValue("@senha", usuario._Senha);
+        Comando.ExecuteNonQuery();
+
+        long id = Comando.LastInsertedId;
+        usuario.Id = id;
+
+        bancoDeDados.Conexao.Close();
+    }
     public string Login()
     {
-        do // Loop 
+        do // Loop para teste do nome
         {
             Console.Clear();
 
@@ -1107,17 +1369,16 @@ public class OperaçoesUsuario
             Console.WriteLine("=====================");
             Console.WriteLine("Digite as informações.\n");
             Console.Write("Nome : ");
-            string nome = Console.ReadLine();
+            string nome = Console.ReadLine().Trim();
 
-            Usuario UsuarioLogin = BuscarUsuario(nome);
-            // Verifica se o usuário existe na cadastro
+            Usuario UsuarioLogin = BuscarUsuario(nome); // Verifica se o usuário existe na cadastro
 
             if (UsuarioLogin != null)
             {
                 Console.WriteLine("Usuário encontrado.");
                 Thread.Sleep(400);
 
-                do // Loop 
+                do // Loop para teste de senha 
                 {
                     Console.Clear();
 
@@ -1154,11 +1415,10 @@ public class OperaçoesUsuario
         Console.WriteLine("\nOperação cancelada.");
         return null;
     }
-
     public Usuario BuscarUsuario(string Nome)
     {
         foreach (Usuario x in Usuarios)
-            if (Nome == x._Nome)
+            if (x._Nome.Equals(Nome, StringComparison.OrdinalIgnoreCase))
                 return x;
 
         return null;
@@ -1179,44 +1439,42 @@ public class BancoDeDados
             Console.WriteLine("falha na conexão com  o bando de dados");
         }
     }
-    public void Iserir(string TABLE, string COLUMN, string VALUE)
-    {// Modificar o insert 
-        Conexao.Open();
-        using MySqlCommand Comando = new($"INSERT INTO {TABLE} ({COLUMN}) VALUES ({VALUE})", Conexao);
-        Conexao.Close();
-    }
-    public void funçao()
+
+    public void INSERT(string TABLE, string COLUMN, string VALUE)
     {
         Conexao.Open();
-        Console.WriteLine("✅ Conectado ao MySQL!");
 
-        // 2. Inserir uma mídia
-        string inserirQuery = "INSERT INTO Midias (nome, tipo) VALUES (@nome, @tipo)";
-        using (MySqlCommand comando = new MySqlCommand(inserirQuery, conexao))
-        {
-            comando.Parameters.AddWithValue("@nome", "A Grande Viagem");
-            comando.Parameters.AddWithValue("@tipo", "Filme");
-            comando.ExecuteNonQuery();
-            Console.WriteLine("🎬 Mídia inserida com sucesso.");
-        }
+        using MySqlCommand Comando = new($"INSERT INTO {TABLE} ({COLUMN}) VALUES (@value)", Conexao);
+        Comando.Parameters.AddWithValue("@value", VALUE);
+        Comando.ExecuteNonQuery();
 
-        // 3. Ler as mídias
-        string selecionarQuery = "SELECT * FROM Midias";
-        using (MySqlCommand comando = new MySqlCommand(selecionarQuery, conexao))
-        using (MySqlDataReader leitor = comando.ExecuteReader())
-        {
-            Console.WriteLine("\n📄 Mídias cadastradas:");
-            while (leitor.Read())
-            {
-                int id = leitor.GetInt32("id");
-                string nome = leitor.GetString("nome");
-                string tipo = leitor.GetString("tipo");
-
-                Console.WriteLine($" - ID {id}: {nome} ({tipo})");
-            }
-        }
-
-        conexao.Close();
+        Conexao.Close();
     }
+    public void INSERT(string TABLE, string COLUMN1, string COLUMN2, string VALUE1, string VALUE2)
+    {
+        Conexao.Open();
 
+        using MySqlCommand Comando = new($"INSERT INTO {TABLE} ({COLUMN1},{COLUMN2}) VALUES (@value1,@value2)", Conexao);
+        Comando.Parameters.AddWithValue("@value1", VALUE1);
+        Comando.Parameters.AddWithValue("@value2", VALUE2);
+        Comando.ExecuteNonQuery();
+
+        Conexao.Close();
+    }
+    public void SELECT(string TABLE, string COLUMN)
+    {
+        Conexao.Open();
+
+        using MySqlCommand Comando = new($"SELECT {COLUMN} FROM {TABLE}", Conexao);
+
+        using MySqlDataReader Leitor = Comando.ExecuteReader();
+
+        while (Leitor.Read())
+        {
+            string valor = Leitor.GetString(COLUMN);
+            Console.WriteLine($"{COLUMN} - {valor} ");
+        }
+
+        Conexao.Close();
+    }
 }
