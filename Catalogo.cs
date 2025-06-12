@@ -116,7 +116,7 @@ public class Catalogo
         ComandoMidia.ExecuteNonQuery();
 
         long MidiaId = ComandoMidia.LastInsertedId; // id da midia para inserir os dados na tabela filmes
-        filme.Id = MidiaId;
+        filme.Id = MidiaId; 
 
         // Insere o filme na tabela filmes
         using MySqlCommand ComandoFilme = new($"INSERT INTO Filmes (MidiaId,Duracao,Diretor) values (@midiaId,@duracao,@diretor)", bancoDeDados.Conexao);
