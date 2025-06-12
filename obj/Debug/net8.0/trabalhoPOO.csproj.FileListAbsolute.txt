@@ -1,87 +1,41 @@
-C:\Users\Arthur\OneDrive\Documentos\Progamas\Vs.code\Trabalho Poo\trabalhoPOO\bin\Debug\net8.0\trabalhoPOO.exe
-C:\Users\Arthur\OneDrive\Documentos\Progamas\Vs.code\Trabalho Poo\trabalhoPOO\bin\Debug\net8.0\trabalhoPOO.deps.json
-C:\Users\Arthur\OneDrive\Documentos\Progamas\Vs.code\Trabalho Poo\trabalhoPOO\bin\Debug\net8.0\trabalhoPOO.runtimeconfig.json
-C:\Users\Arthur\OneDrive\Documentos\Progamas\Vs.code\Trabalho Poo\trabalhoPOO\bin\Debug\net8.0\trabalhoPOO.dll
-C:\Users\Arthur\OneDrive\Documentos\Progamas\Vs.code\Trabalho Poo\trabalhoPOO\bin\Debug\net8.0\trabalhoPOO.pdb
-C:\Users\Arthur\OneDrive\Documentos\Progamas\Vs.code\Trabalho Poo\trabalhoPOO\obj\Debug\net8.0\trabalhoPOO.GeneratedMSBuildEditorConfig.editorconfig
-C:\Users\Arthur\OneDrive\Documentos\Progamas\Vs.code\Trabalho Poo\trabalhoPOO\obj\Debug\net8.0\trabalhoPOO.AssemblyInfoInputs.cache
-C:\Users\Arthur\OneDrive\Documentos\Progamas\Vs.code\Trabalho Poo\trabalhoPOO\obj\Debug\net8.0\trabalhoPOO.AssemblyInfo.cs
-C:\Users\Arthur\OneDrive\Documentos\Progamas\Vs.code\Trabalho Poo\trabalhoPOO\obj\Debug\net8.0\trabalhoPOO.csproj.CoreCompileInputs.cache
-C:\Users\Arthur\OneDrive\Documentos\Progamas\Vs.code\Trabalho Poo\trabalhoPOO\obj\Debug\net8.0\trabalhoPOO.dll
-C:\Users\Arthur\OneDrive\Documentos\Progamas\Vs.code\Trabalho Poo\trabalhoPOO\obj\Debug\net8.0\refint\trabalhoPOO.dll
-C:\Users\Arthur\OneDrive\Documentos\Progamas\Vs.code\Trabalho Poo\trabalhoPOO\obj\Debug\net8.0\trabalhoPOO.pdb
-C:\Users\Arthur\OneDrive\Documentos\Progamas\Vs.code\Trabalho Poo\trabalhoPOO\obj\Debug\net8.0\trabalhoPOO.genruntimeconfig.cache
-C:\Users\Arthur\OneDrive\Documentos\Progamas\Vs.code\Trabalho Poo\trabalhoPOO\obj\Debug\net8.0\ref\trabalhoPOO.dll
-C:\Users\arthu\OneDrive\Documentos\Progamas\Vs.code\Trabalho Poo\trabalhoPOO\bin\Debug\net8.0\trabalhoPOO.exe
-C:\Users\arthu\OneDrive\Documentos\Progamas\Vs.code\Trabalho Poo\trabalhoPOO\bin\Debug\net8.0\trabalhoPOO.deps.json
-C:\Users\arthu\OneDrive\Documentos\Progamas\Vs.code\Trabalho Poo\trabalhoPOO\bin\Debug\net8.0\trabalhoPOO.runtimeconfig.json
-C:\Users\arthu\OneDrive\Documentos\Progamas\Vs.code\Trabalho Poo\trabalhoPOO\bin\Debug\net8.0\trabalhoPOO.dll
-C:\Users\arthu\OneDrive\Documentos\Progamas\Vs.code\Trabalho Poo\trabalhoPOO\bin\Debug\net8.0\trabalhoPOO.pdb
-C:\Users\arthu\OneDrive\Documentos\Progamas\Vs.code\Trabalho Poo\trabalhoPOO\obj\Debug\net8.0\trabalhoPOO.GeneratedMSBuildEditorConfig.editorconfig
-C:\Users\arthu\OneDrive\Documentos\Progamas\Vs.code\Trabalho Poo\trabalhoPOO\obj\Debug\net8.0\trabalhoPOO.AssemblyInfoInputs.cache
-C:\Users\arthu\OneDrive\Documentos\Progamas\Vs.code\Trabalho Poo\trabalhoPOO\obj\Debug\net8.0\trabalhoPOO.AssemblyInfo.cs
-C:\Users\arthu\OneDrive\Documentos\Progamas\Vs.code\Trabalho Poo\trabalhoPOO\obj\Debug\net8.0\trabalhoPOO.csproj.CoreCompileInputs.cache
-C:\Users\arthu\OneDrive\Documentos\Progamas\Vs.code\Trabalho Poo\trabalhoPOO\obj\Debug\net8.0\trabalhoPOO.dll
-C:\Users\arthu\OneDrive\Documentos\Progamas\Vs.code\Trabalho Poo\trabalhoPOO\obj\Debug\net8.0\refint\trabalhoPOO.dll
-C:\Users\arthu\OneDrive\Documentos\Progamas\Vs.code\Trabalho Poo\trabalhoPOO\obj\Debug\net8.0\trabalhoPOO.pdb
-C:\Users\arthu\OneDrive\Documentos\Progamas\Vs.code\Trabalho Poo\trabalhoPOO\obj\Debug\net8.0\trabalhoPOO.genruntimeconfig.cache
-C:\Users\arthu\OneDrive\Documentos\Progamas\Vs.code\Trabalho Poo\trabalhoPOO\obj\Debug\net8.0\ref\trabalhoPOO.dll
-E:\Vladimir\Faculdade\Programing\Algoritimos C#\POO\Trabalho POO - Catalogo filmes\Trabalho Poo\trabalhoPOO\bin\Debug\net8.0\trabalhoPOO.exe
-E:\Vladimir\Faculdade\Programing\Algoritimos C#\POO\Trabalho POO - Catalogo filmes\Trabalho Poo\trabalhoPOO\bin\Debug\net8.0\trabalhoPOO.deps.json
-E:\Vladimir\Faculdade\Programing\Algoritimos C#\POO\Trabalho POO - Catalogo filmes\Trabalho Poo\trabalhoPOO\bin\Debug\net8.0\trabalhoPOO.runtimeconfig.json
-E:\Vladimir\Faculdade\Programing\Algoritimos C#\POO\Trabalho POO - Catalogo filmes\Trabalho Poo\trabalhoPOO\bin\Debug\net8.0\trabalhoPOO.dll
-E:\Vladimir\Faculdade\Programing\Algoritimos C#\POO\Trabalho POO - Catalogo filmes\Trabalho Poo\trabalhoPOO\bin\Debug\net8.0\trabalhoPOO.pdb
-E:\Vladimir\Faculdade\Programing\Algoritimos C#\POO\Trabalho POO - Catalogo filmes\Trabalho Poo\trabalhoPOO\obj\Debug\net8.0\trabalhoPOO.GeneratedMSBuildEditorConfig.editorconfig
-E:\Vladimir\Faculdade\Programing\Algoritimos C#\POO\Trabalho POO - Catalogo filmes\Trabalho Poo\trabalhoPOO\obj\Debug\net8.0\trabalhoPOO.AssemblyInfoInputs.cache
-E:\Vladimir\Faculdade\Programing\Algoritimos C#\POO\Trabalho POO - Catalogo filmes\Trabalho Poo\trabalhoPOO\obj\Debug\net8.0\trabalhoPOO.AssemblyInfo.cs
-E:\Vladimir\Faculdade\Programing\Algoritimos C#\POO\Trabalho POO - Catalogo filmes\Trabalho Poo\trabalhoPOO\obj\Debug\net8.0\trabalhoPOO.csproj.CoreCompileInputs.cache
-E:\Vladimir\Faculdade\Programing\Algoritimos C#\POO\Trabalho POO - Catalogo filmes\Trabalho Poo\trabalhoPOO\obj\Debug\net8.0\trabalhoPOO.dll
-E:\Vladimir\Faculdade\Programing\Algoritimos C#\POO\Trabalho POO - Catalogo filmes\Trabalho Poo\trabalhoPOO\obj\Debug\net8.0\refint\trabalhoPOO.dll
-E:\Vladimir\Faculdade\Programing\Algoritimos C#\POO\Trabalho POO - Catalogo filmes\Trabalho Poo\trabalhoPOO\obj\Debug\net8.0\trabalhoPOO.pdb
-E:\Vladimir\Faculdade\Programing\Algoritimos C#\POO\Trabalho POO - Catalogo filmes\Trabalho Poo\trabalhoPOO\obj\Debug\net8.0\trabalhoPOO.genruntimeconfig.cache
-E:\Vladimir\Faculdade\Programing\Algoritimos C#\POO\Trabalho POO - Catalogo filmes\Trabalho Poo\trabalhoPOO\obj\Debug\net8.0\ref\trabalhoPOO.dll
-C:\Users\edlau\OneDrive\!PUC\3°\POO\Trabalho_Poo\trabalhoPOO\bin\Debug\net8.0\trabalhoPOO.exe
-C:\Users\edlau\OneDrive\!PUC\3°\POO\Trabalho_Poo\trabalhoPOO\bin\Debug\net8.0\trabalhoPOO.deps.json
-C:\Users\edlau\OneDrive\!PUC\3°\POO\Trabalho_Poo\trabalhoPOO\bin\Debug\net8.0\trabalhoPOO.runtimeconfig.json
-C:\Users\edlau\OneDrive\!PUC\3°\POO\Trabalho_Poo\trabalhoPOO\bin\Debug\net8.0\trabalhoPOO.dll
-C:\Users\edlau\OneDrive\!PUC\3°\POO\Trabalho_Poo\trabalhoPOO\bin\Debug\net8.0\trabalhoPOO.pdb
-C:\Users\edlau\OneDrive\!PUC\3°\POO\Trabalho_Poo\trabalhoPOO\obj\Debug\net8.0\trabalhoPOO.GeneratedMSBuildEditorConfig.editorconfig
-C:\Users\edlau\OneDrive\!PUC\3°\POO\Trabalho_Poo\trabalhoPOO\obj\Debug\net8.0\trabalhoPOO.AssemblyInfoInputs.cache
-C:\Users\edlau\OneDrive\!PUC\3°\POO\Trabalho_Poo\trabalhoPOO\obj\Debug\net8.0\trabalhoPOO.AssemblyInfo.cs
-C:\Users\edlau\OneDrive\!PUC\3°\POO\Trabalho_Poo\trabalhoPOO\obj\Debug\net8.0\trabalhoPOO.csproj.CoreCompileInputs.cache
-C:\Users\edlau\OneDrive\!PUC\3°\POO\Trabalho_Poo\trabalhoPOO\obj\Debug\net8.0\trabalhoPOO.sourcelink.json
-C:\Users\edlau\OneDrive\!PUC\3°\POO\Trabalho_Poo\trabalhoPOO\obj\Debug\net8.0\trabalhoPOO.dll
-C:\Users\edlau\OneDrive\!PUC\3°\POO\Trabalho_Poo\trabalhoPOO\obj\Debug\net8.0\refint\trabalhoPOO.dll
-C:\Users\edlau\OneDrive\!PUC\3°\POO\Trabalho_Poo\trabalhoPOO\obj\Debug\net8.0\trabalhoPOO.pdb
-C:\Users\edlau\OneDrive\!PUC\3°\POO\Trabalho_Poo\trabalhoPOO\obj\Debug\net8.0\trabalhoPOO.genruntimeconfig.cache
-C:\Users\edlau\OneDrive\!PUC\3°\POO\Trabalho_Poo\trabalhoPOO\obj\Debug\net8.0\ref\trabalhoPOO.dll
-C:\Users\edlau\OneDrive\!PUC\3°\POO\Trabalho_Poo_copy\trabalhoPOO\obj\Debug\net8.0\trabalhoPOO.GeneratedMSBuildEditorConfig.editorconfig
-C:\Users\edlau\OneDrive\!PUC\3°\POO\Trabalho_Poo_copy\trabalhoPOO\obj\Debug\net8.0\trabalhoPOO.AssemblyInfoInputs.cache
-C:\Users\edlau\OneDrive\!PUC\3°\POO\Trabalho_Poo_copy\trabalhoPOO\obj\Debug\net8.0\trabalhoPOO.AssemblyInfo.cs
-C:\Users\edlau\OneDrive\!PUC\3°\POO\Trabalho_Poo_copy\trabalhoPOO\obj\Debug\net8.0\trabalhoPOO.csproj.CoreCompileInputs.cache
-C:\Users\edlau\OneDrive\!PUC\3°\POO\Trabalho_Poo_copy\trabalhoPOO\obj\Debug\net8.0\trabalhoPOO.sourcelink.json
-C:\Users\edlau\OneDrive\!PUC\3°\POO\Trabalho_Poo_copy\trabalhoPOO\obj\Debug\net8.0\trabalhoPOO.dll
-C:\Users\edlau\OneDrive\!PUC\3°\POO\Trabalho_Poo_copy\trabalhoPOO\obj\Debug\net8.0\refint\trabalhoPOO.dll
-C:\Users\edlau\OneDrive\!PUC\3°\POO\Trabalho_Poo_copy\trabalhoPOO\obj\Debug\net8.0\trabalhoPOO.pdb
-C:\Users\edlau\OneDrive\!PUC\3°\POO\Trabalho_Poo_copy\trabalhoPOO\bin\Debug\net8.0\trabalhoPOO.exe
-C:\Users\edlau\OneDrive\!PUC\3°\POO\Trabalho_Poo_copy\trabalhoPOO\bin\Debug\net8.0\trabalhoPOO.deps.json
-C:\Users\edlau\OneDrive\!PUC\3°\POO\Trabalho_Poo_copy\trabalhoPOO\bin\Debug\net8.0\trabalhoPOO.runtimeconfig.json
-C:\Users\edlau\OneDrive\!PUC\3°\POO\Trabalho_Poo_copy\trabalhoPOO\bin\Debug\net8.0\trabalhoPOO.dll
-C:\Users\edlau\OneDrive\!PUC\3°\POO\Trabalho_Poo_copy\trabalhoPOO\bin\Debug\net8.0\trabalhoPOO.pdb
-C:\Users\edlau\OneDrive\!PUC\3°\POO\Trabalho_Poo_copy\trabalhoPOO\obj\Debug\net8.0\trabalhoPOO.genruntimeconfig.cache
-C:\Users\edlau\OneDrive\!PUC\3°\POO\Trabalho_Poo_copy\trabalhoPOO\obj\Debug\net8.0\ref\trabalhoPOO.dll
-C:\Users\edlau\OneDrive\!PUC\3°\POO\Catalogo-de-Filmes-e-Series\bin\Debug\net8.0\trabalhoPOO.exe
-C:\Users\edlau\OneDrive\!PUC\3°\POO\Catalogo-de-Filmes-e-Series\bin\Debug\net8.0\trabalhoPOO.deps.json
-C:\Users\edlau\OneDrive\!PUC\3°\POO\Catalogo-de-Filmes-e-Series\bin\Debug\net8.0\trabalhoPOO.runtimeconfig.json
-C:\Users\edlau\OneDrive\!PUC\3°\POO\Catalogo-de-Filmes-e-Series\bin\Debug\net8.0\trabalhoPOO.dll
-C:\Users\edlau\OneDrive\!PUC\3°\POO\Catalogo-de-Filmes-e-Series\bin\Debug\net8.0\trabalhoPOO.pdb
-C:\Users\edlau\OneDrive\!PUC\3°\POO\Catalogo-de-Filmes-e-Series\obj\Debug\net8.0\trabalhoPOO.GeneratedMSBuildEditorConfig.editorconfig
-C:\Users\edlau\OneDrive\!PUC\3°\POO\Catalogo-de-Filmes-e-Series\obj\Debug\net8.0\trabalhoPOO.AssemblyInfoInputs.cache
-C:\Users\edlau\OneDrive\!PUC\3°\POO\Catalogo-de-Filmes-e-Series\obj\Debug\net8.0\trabalhoPOO.AssemblyInfo.cs
-C:\Users\edlau\OneDrive\!PUC\3°\POO\Catalogo-de-Filmes-e-Series\obj\Debug\net8.0\trabalhoPOO.csproj.CoreCompileInputs.cache
-C:\Users\edlau\OneDrive\!PUC\3°\POO\Catalogo-de-Filmes-e-Series\obj\Debug\net8.0\trabalhoPOO.sourcelink.json
-C:\Users\edlau\OneDrive\!PUC\3°\POO\Catalogo-de-Filmes-e-Series\obj\Debug\net8.0\trabalhoPOO.dll
-C:\Users\edlau\OneDrive\!PUC\3°\POO\Catalogo-de-Filmes-e-Series\obj\Debug\net8.0\refint\trabalhoPOO.dll
-C:\Users\edlau\OneDrive\!PUC\3°\POO\Catalogo-de-Filmes-e-Series\obj\Debug\net8.0\trabalhoPOO.pdb
-C:\Users\edlau\OneDrive\!PUC\3°\POO\Catalogo-de-Filmes-e-Series\obj\Debug\net8.0\trabalhoPOO.genruntimeconfig.cache
-C:\Users\edlau\OneDrive\!PUC\3°\POO\Catalogo-de-Filmes-e-Series\obj\Debug\net8.0\ref\trabalhoPOO.dll
+C:\Users\edlau\OneDrive\!PUC\3°\POO\Catalogo-de-Filmes-e-Series-dev-vladimirvalentim\obj\Debug\net8.0\trabalhoPOO.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\edlau\OneDrive\!PUC\3°\POO\Catalogo-de-Filmes-e-Series-dev-vladimirvalentim\obj\Debug\net8.0\trabalhoPOO.AssemblyInfoInputs.cache
+C:\Users\edlau\OneDrive\!PUC\3°\POO\Catalogo-de-Filmes-e-Series-dev-vladimirvalentim\obj\Debug\net8.0\trabalhoPOO.AssemblyInfo.cs
+C:\Users\edlau\OneDrive\!PUC\3°\POO\Catalogo-de-Filmes-e-Series-dev-vladimirvalentim\obj\Debug\net8.0\trabalhoPOO.csproj.CoreCompileInputs.cache
+C:\Users\edlau\OneDrive\!PUC\3°\POO\Catalogo-de-Filmes-e-Series-dev-vladimirvalentim\obj\Debug\net8.0\trabalhoPOO.sourcelink.json
+C:\Users\edlau\OneDrive\!PUC\3°\POO\Catalogo-de-Filmes-e-Series-dev-vladimirvalentim\obj\Debug\net8.0\trabalhoPOO.csproj.AssemblyReference.cache
+C:\Users\edlau\OneDrive\!PUC\3°\POO\Catalogo-de-Filmes-e-Series-dev-vladimirvalentim\bin\Debug\net8.0\trabalhoPOO.exe
+C:\Users\edlau\OneDrive\!PUC\3°\POO\Catalogo-de-Filmes-e-Series-dev-vladimirvalentim\bin\Debug\net8.0\trabalhoPOO.deps.json
+C:\Users\edlau\OneDrive\!PUC\3°\POO\Catalogo-de-Filmes-e-Series-dev-vladimirvalentim\bin\Debug\net8.0\trabalhoPOO.runtimeconfig.json
+C:\Users\edlau\OneDrive\!PUC\3°\POO\Catalogo-de-Filmes-e-Series-dev-vladimirvalentim\bin\Debug\net8.0\trabalhoPOO.dll
+C:\Users\edlau\OneDrive\!PUC\3°\POO\Catalogo-de-Filmes-e-Series-dev-vladimirvalentim\bin\Debug\net8.0\trabalhoPOO.pdb
+C:\Users\edlau\OneDrive\!PUC\3°\POO\Catalogo-de-Filmes-e-Series-dev-vladimirvalentim\bin\Debug\net8.0\BouncyCastle.Cryptography.dll
+C:\Users\edlau\OneDrive\!PUC\3°\POO\Catalogo-de-Filmes-e-Series-dev-vladimirvalentim\bin\Debug\net8.0\Google.Protobuf.dll
+C:\Users\edlau\OneDrive\!PUC\3°\POO\Catalogo-de-Filmes-e-Series-dev-vladimirvalentim\bin\Debug\net8.0\K4os.Compression.LZ4.dll
+C:\Users\edlau\OneDrive\!PUC\3°\POO\Catalogo-de-Filmes-e-Series-dev-vladimirvalentim\bin\Debug\net8.0\K4os.Compression.LZ4.Streams.dll
+C:\Users\edlau\OneDrive\!PUC\3°\POO\Catalogo-de-Filmes-e-Series-dev-vladimirvalentim\bin\Debug\net8.0\K4os.Hash.xxHash.dll
+C:\Users\edlau\OneDrive\!PUC\3°\POO\Catalogo-de-Filmes-e-Series-dev-vladimirvalentim\bin\Debug\net8.0\MySql.Data.dll
+C:\Users\edlau\OneDrive\!PUC\3°\POO\Catalogo-de-Filmes-e-Series-dev-vladimirvalentim\bin\Debug\net8.0\System.Configuration.ConfigurationManager.dll
+C:\Users\edlau\OneDrive\!PUC\3°\POO\Catalogo-de-Filmes-e-Series-dev-vladimirvalentim\bin\Debug\net8.0\System.Diagnostics.EventLog.dll
+C:\Users\edlau\OneDrive\!PUC\3°\POO\Catalogo-de-Filmes-e-Series-dev-vladimirvalentim\bin\Debug\net8.0\System.IO.Pipelines.dll
+C:\Users\edlau\OneDrive\!PUC\3°\POO\Catalogo-de-Filmes-e-Series-dev-vladimirvalentim\bin\Debug\net8.0\System.Security.Cryptography.ProtectedData.dll
+C:\Users\edlau\OneDrive\!PUC\3°\POO\Catalogo-de-Filmes-e-Series-dev-vladimirvalentim\bin\Debug\net8.0\System.Security.Permissions.dll
+C:\Users\edlau\OneDrive\!PUC\3°\POO\Catalogo-de-Filmes-e-Series-dev-vladimirvalentim\bin\Debug\net8.0\System.Text.Encodings.Web.dll
+C:\Users\edlau\OneDrive\!PUC\3°\POO\Catalogo-de-Filmes-e-Series-dev-vladimirvalentim\bin\Debug\net8.0\System.Text.Json.dll
+C:\Users\edlau\OneDrive\!PUC\3°\POO\Catalogo-de-Filmes-e-Series-dev-vladimirvalentim\bin\Debug\net8.0\System.Windows.Extensions.dll
+C:\Users\edlau\OneDrive\!PUC\3°\POO\Catalogo-de-Filmes-e-Series-dev-vladimirvalentim\bin\Debug\net8.0\ZstdSharp.dll
+C:\Users\edlau\OneDrive\!PUC\3°\POO\Catalogo-de-Filmes-e-Series-dev-vladimirvalentim\bin\Debug\net8.0\runtimes\win-x64\native\comerr64.dll
+C:\Users\edlau\OneDrive\!PUC\3°\POO\Catalogo-de-Filmes-e-Series-dev-vladimirvalentim\bin\Debug\net8.0\runtimes\win-x64\native\gssapi64.dll
+C:\Users\edlau\OneDrive\!PUC\3°\POO\Catalogo-de-Filmes-e-Series-dev-vladimirvalentim\bin\Debug\net8.0\runtimes\win-x64\native\k5sprt64.dll
+C:\Users\edlau\OneDrive\!PUC\3°\POO\Catalogo-de-Filmes-e-Series-dev-vladimirvalentim\bin\Debug\net8.0\runtimes\win-x64\native\krb5_64.dll
+C:\Users\edlau\OneDrive\!PUC\3°\POO\Catalogo-de-Filmes-e-Series-dev-vladimirvalentim\bin\Debug\net8.0\runtimes\win-x64\native\krbcc64.dll
+C:\Users\edlau\OneDrive\!PUC\3°\POO\Catalogo-de-Filmes-e-Series-dev-vladimirvalentim\bin\Debug\net8.0\runtimes\win\lib\net8.0\System.Diagnostics.EventLog.Messages.dll
+C:\Users\edlau\OneDrive\!PUC\3°\POO\Catalogo-de-Filmes-e-Series-dev-vladimirvalentim\bin\Debug\net8.0\runtimes\win\lib\net8.0\System.Diagnostics.EventLog.dll
+C:\Users\edlau\OneDrive\!PUC\3°\POO\Catalogo-de-Filmes-e-Series-dev-vladimirvalentim\bin\Debug\net8.0\runtimes\browser\lib\net8.0\System.Text.Encodings.Web.dll
+C:\Users\edlau\OneDrive\!PUC\3°\POO\Catalogo-de-Filmes-e-Series-dev-vladimirvalentim\bin\Debug\net8.0\runtimes\win\lib\net8.0\System.Windows.Extensions.dll
+C:\Users\edlau\OneDrive\!PUC\3°\POO\Catalogo-de-Filmes-e-Series-dev-vladimirvalentim\obj\Debug\net8.0\trabalho.0DE3538B.Up2Date
+C:\Users\edlau\OneDrive\!PUC\3°\POO\Catalogo-de-Filmes-e-Series-dev-vladimirvalentim\obj\Debug\net8.0\trabalhoPOO.dll
+C:\Users\edlau\OneDrive\!PUC\3°\POO\Catalogo-de-Filmes-e-Series-dev-vladimirvalentim\obj\Debug\net8.0\refint\trabalhoPOO.dll
+C:\Users\edlau\OneDrive\!PUC\3°\POO\Catalogo-de-Filmes-e-Series-dev-vladimirvalentim\obj\Debug\net8.0\trabalhoPOO.pdb
+C:\Users\edlau\OneDrive\!PUC\3°\POO\Catalogo-de-Filmes-e-Series-dev-vladimirvalentim\obj\Debug\net8.0\trabalhoPOO.genruntimeconfig.cache
+C:\Users\edlau\OneDrive\!PUC\3°\POO\Catalogo-de-Filmes-e-Series-dev-vladimirvalentim\obj\Debug\net8.0\ref\trabalhoPOO.dll

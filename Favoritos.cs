@@ -1,6 +1,8 @@
 using System;
+using System.Runtime.CompilerServices;
+using MySql.Data.MySqlClient;
 
-public class Favoritos
+class Favoritos
 {
     private List<Midia> listaFavoritos = new List<Midia>();
 
@@ -8,7 +10,7 @@ public class Favoritos
     {
         bool MidiaExiste = false;
 
-        // Verifica a existencia da midia na lista de favoritos
+        // Verificação da existencia da midia na lista de favoritos
         foreach (Midia m in listaFavoritos)
             if (m.Nome == midiaNova.Nome)
                 MidiaExiste = true;
@@ -29,5 +31,29 @@ public class Favoritos
             Console.WriteLine(m);
     }
 
+    // Função count
     public int QtdFavoritos() { return listaFavoritos.Count; }
+
+    public bool RemoverFavorito(Midia midia)
+    {
+        foreach (Midia m in listaFavoritos)
+            if (midia == m)
+            {
+                listaFavoritos.Remove(m);
+                return true;
+            }
+
+        return false;
+    }
+
+    public void RemoverFavoritos() { listaFavoritos.Clear(); }
+
+    public Midia BuscarPorNome(string nome)
+    {
+        foreach (Midia m in listaFavoritos)
+            if (m.Nome.Equals(nome, StringComparison.OrdinalIgnoreCase))
+                return m;
+
+        return null;
+    }
 }

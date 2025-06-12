@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\edlau\\OneDrive\\!PUC\\3°\\POO\\Catalogo-de-Filmes-e-Series\\trabalhoPOO.csproj": {}
+    "C:\\Users\\edlau\\OneDrive\\!PUC\\3°\\POO\\Catalogo-de-Filmes-e-Series-dev-vladimirvalentim\\trabalhoPOO.csproj": {}
   },
   "projects": {
-    "C:\\Users\\edlau\\OneDrive\\!PUC\\3°\\POO\\Catalogo-de-Filmes-e-Series\\trabalhoPOO.csproj": {
+    "C:\\Users\\edlau\\OneDrive\\!PUC\\3°\\POO\\Catalogo-de-Filmes-e-Series-dev-vladimirvalentim\\trabalhoPOO.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\edlau\\OneDrive\\!PUC\\3°\\POO\\Catalogo-de-Filmes-e-Series\\trabalhoPOO.csproj",
+        "projectUniqueName": "C:\\Users\\edlau\\OneDrive\\!PUC\\3°\\POO\\Catalogo-de-Filmes-e-Series-dev-vladimirvalentim\\trabalhoPOO.csproj",
         "projectName": "trabalhoPOO",
-        "projectPath": "C:\\Users\\edlau\\OneDrive\\!PUC\\3°\\POO\\Catalogo-de-Filmes-e-Series\\trabalhoPOO.csproj",
+        "projectPath": "C:\\Users\\edlau\\OneDrive\\!PUC\\3°\\POO\\Catalogo-de-Filmes-e-Series-dev-vladimirvalentim\\trabalhoPOO.csproj",
         "packagesPath": "C:\\Users\\edlau\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\edlau\\OneDrive\\!PUC\\3°\\POO\\Catalogo-de-Filmes-e-Series\\obj\\",
+        "outputPath": "C:\\Users\\edlau\\OneDrive\\!PUC\\3°\\POO\\Catalogo-de-Filmes-e-Series-dev-vladimirvalentim\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "C:\\Users\\edlau\\AppData\\Roaming\\NuGet\\NuGet.Config"
@@ -42,6 +42,12 @@
       "frameworks": {
         "net8.0": {
           "targetAlias": "net8.0",
+          "dependencies": {
+            "MySql.Data": {
+              "target": "Package",
+              "version": "[9.3.0, )"
+            }
+          },
           "imports": [
             "net461",
             "net462",

@@ -1,190 +1,211 @@
-public class OperaçoesUsuario
+using System;
+using System.Runtime.CompilerServices;
+using MySql.Data.MySqlClient;
+
+public class Usuario
 {
-    public class Usuario
+    public long Id;
+    private string Nome;
+    public string _Nome
     {
-        private string Nome;
-        public string _Nome
+        get { return Nome; }
+        set // Impede a modificação de um usuário existente sem um metódo
         {
-            get { return Nome; }
-            set // Impede a modificação de um usuário existente sem um metódo
+            if (Nome == null)
+                Nome = value;
+        }
+    }
+    private string Senha;
+    public string _Senha
+    {
+        get { return Senha; }
+        set // Impede a modificação de uma senha existente sem um metódo
+        {
+            if (Senha == null)
+                Senha = value;
+        }
+    }
+    BancoDeDados bancoDeDados = new();
+    private List<Midia> listaFavoritos = new();
+    public Usuario() { }
+    public Usuario(string Nome, string Senha, long Id)
+    {
+        this.Senha = Senha;
+        this.Nome = Nome;
+        this.Id = Id;
+        AtualizaFavoritosComBD();
+    }
+    public void AtualizaFavoritosComBD()
+    {
+        listaFavoritos.Clear(); // Limpa a lista para recarrega-la com o banco de dados
+
+        if (bancoDeDados.Conexao.State != System.Data.ConnectionState.Open)
+            bancoDeDados.Conexao.Open();
+
+        string query = @" SELECT m.id, m.nome, m.genero, m.tipo, m.anoLancamento,
+                f.duracao AS filme_duracao, f.diretor,
+                s.duracao AS serie_duracao, s.temporadas, s.qntEpisodios
+                    FROM Favoritos fav
+                    JOIN Midias m ON fav.MidiaId = m.id
+                    LEFT JOIN Filmes f ON m.id = f.MidiaId
+                    LEFT JOIN Series s ON m.id = s.MidiaId
+                WHERE fav.UsuarioId = @UsuarioId";
+
+        using MySqlCommand ComandoFavoritos = new(query, bancoDeDados.Conexao);
+        ComandoFavoritos.Parameters.AddWithValue("@UsuarioId", Id);
+
+        using MySqlDataReader LeitorFavoritos = ComandoFavoritos.ExecuteReader();
+
+        while (LeitorFavoritos.Read())
+        {
+            string nome = LeitorFavoritos.GetString("Nome");
+            string genero = LeitorFavoritos.GetString("Genero");
+            int anolancamento = LeitorFavoritos.GetInt32("AnoLancamento");
+            string tipo = LeitorFavoritos.GetString("tipo");
+            int Id = LeitorFavoritos.GetInt32("Id");
+
+            Midia nova = null;
+
+            if (tipo.ToLower() == "filme")
             {
-                if (Nome == null)
-                    Nome = value;
+                double duracao = LeitorFavoritos.GetDouble("filme_duracao");
+                string diretor = LeitorFavoritos.GetString("diretor");
+
+                nova = new Filme(nome, genero, anolancamento, Id, duracao, diretor);
             }
-        }
-        private string Senha;
-        public string _Senha
-        {
-            get { return Senha; }
-            set // Impede a modificação de uma senha existente sem um metódo
+            else if (tipo.ToLower() == "serie")
             {
-                if (Senha == null)
-                    Senha = value;
+                double duracao = LeitorFavoritos.GetDouble("serie_duracao");
+                int QtdTemporadas = LeitorFavoritos.GetInt32("temporadas");
+                int QtdEpisodios = LeitorFavoritos.GetInt32("QntEpisodios");
+
+                nova = new Serie(nome, genero, anolancamento, Id, duracao, QtdTemporadas, QtdEpisodios);
             }
+            if (BuscarFavoritoPorNome(nova.Nome) == null)
+                listaFavoritos.Add(nova);
         }
-        public Favoritos favoritos { get; private set; } = new Favoritos();
+        bancoDeDados.Conexao.Close();
+    }
 
-        public Usuario() { }
-        public Usuario(string Nome, string Senha)
+    // Manipulação de atributos de Usuario
+    public void NovoNome(string Nome)
+    {
+        this.Nome = Nome;
+    }
+    
+    public bool VerificaNome(string Nome, List<Usuario> Usuarios) // Impede que o nome do usuário esteja vazio ou que se repita
+    {
+        if (Nome == "")
         {
-            this.Senha = Senha;
-            this.Nome = Nome;
-        }
-        public bool VerificaNome(string Nome, List<Usuario> Usuarios) // Impede que o nome do usuário esteja vazio ou que se repita
-        {
-            if (Nome == "")
-            {
-                Console.WriteLine("\nO usuário não pode ficar vazio.");    
-                return false;
-            }
-            foreach (Usuario x in Usuarios)// Verifica se o usuário existe na cadastro
-                    if (Nome.ToUpper() == x._Nome.ToUpper())
-                    {
-                        Console.WriteLine("\nUsuário já existente.");
-
-                        return false;
-                    }
-
-            return true;
-        }
-        public void NovoNome(string Nome)
-        {
-            this.Nome = Nome;
-        }
-        public bool VerificaSenha(string Senha)
-        {
-            if (string.IsNullOrWhiteSpace(Senha))
-                Console.WriteLine("A senha não pode ser nula");
-            else if (Senha.Length < 6)
-                Console.WriteLine("Senha muito curta");
-            else
-                return true;
-
+            Console.WriteLine("\nO usuário não pode ficar vazio.");
             return false;
         }
-        public void AtualizarSenha(string Senha) { this.Senha = Senha; }
-    }
-
-    List<Usuario> Usuarios = new List<Usuario>();
-
-    public string Cadastrar()
-    {
-        Usuario Novo = new();
-        bool sts;
-        do // Loop inserção de usuário
-        {
-            Console.Clear();
-
-            Console.WriteLine("Cadastro de usuário");
-            Console.WriteLine("=====================");
-            Console.WriteLine("Digite as informações.\n");
-            Console.Write("Nome : ");
-            string nome = Console.ReadLine();
-
-            sts = Novo.VerificaNome(nome, Usuarios);
-
-            if (sts)
+        foreach (Usuario x in Usuarios)// Verifica se o usuário existe na cadastro
+            if (Nome.ToUpper() == x._Nome.ToUpper())
             {
-                Novo._Nome = nome;
-                break;
+                Console.WriteLine("\nUsuário já existente.");
+
+                return false;
             }
 
-            Console.WriteLine("\nTentar novamente? (Enter confirma)");
-        } while (Console.ReadKey(true).Key == ConsoleKey.Enter);
+        return true;
+    }
 
-        if (sts)
+    public bool VerificaSenha(string Senha)
+    {
+        if (string.IsNullOrWhiteSpace(Senha))
+            Console.WriteLine("A senha não pode ser nula");
+        else if (Senha.Length < 6)
+            Console.WriteLine("Senha muito curta");
+        else
+            return true;
+
+        return false;
+    }
+    public void AtualizarSenha(string Senha) { this.Senha = Senha; }
+
+    // Manipulação de favoritos
+    public void AdicionarFavorito(Midia midiaNova)
+    {
+        bool MidiaExiste = false;
+
+        // Verificação da existencia da midia na lista de favoritos
+        foreach (Midia m in listaFavoritos)
+            if (m.Nome == midiaNova.Nome)
+                MidiaExiste = true;
+
+        if (!MidiaExiste)
         {
-            do // Loop inserção de senha
-            {
-                Console.Clear();
-
-                Console.WriteLine("Cadastro de usuário");
-                Console.WriteLine("=====================");
-                Console.WriteLine("Digite as informações.\n");
-                Console.WriteLine($"Nome : {Novo._Nome}");
-                Console.Write("Senha: ");
-                string senha = Console.ReadLine();
-
-                if (Novo.VerificaSenha(senha))
-                {
-                    Novo._Senha = senha;
-                    Usuarios.Add(Novo);
-                    return Novo._Nome;
-                }
-                else
-                    Console.WriteLine("\nTentar novamente? (Enter confirma)");
-
-            } while (Console.ReadKey(true).Key == ConsoleKey.Enter);
+            AdicionarFavoritoBD(midiaNova);
+            listaFavoritos.Add(midiaNova);
+            Console.WriteLine($"'{midiaNova.Nome}' foi adicionado aos favoritos.");
         }
-
-        return null;
+        else
+            Console.WriteLine($"{midiaNova} \nJÁ EXISTE NOS FAVORITOS!!");
     }
-
-    public string Login()
+    private void AdicionarFavoritoBD(Midia midia)
     {
-        do // Loop 
-        {
-            Console.Clear();
+        if (bancoDeDados.Conexao.State != System.Data.ConnectionState.Open)
+            bancoDeDados.Conexao.Open();
 
-            Console.WriteLine("Login de usuário");
-            Console.WriteLine("=====================");
-            Console.WriteLine("Digite as informações.\n");
-            Console.Write("Nome : ");
-            string nome = Console.ReadLine();
 
-            Usuario UsuarioLogin = BuscarUsuario(nome);
-            // Verifica se o usuário existe na cadastro
+        using MySqlCommand Comando = new($"INSERT INTO Favoritos (UsuarioId,MidiaId) VALUES (@UsuarioId, @MidiaId)", bancoDeDados.Conexao);
+        Comando.Parameters.AddWithValue("@UsuarioId", Id);
+        Comando.Parameters.AddWithValue("@MidiaId", midia.Id);
 
-            if (UsuarioLogin != null)
-            {
-                Console.WriteLine("Usuário encontrado.");
-                Thread.Sleep(400);
+        Comando.ExecuteNonQuery();
 
-                do // Loop 
-                {
-                    Console.Clear();
-
-                    Console.WriteLine("Login de usuário");
-                    Console.WriteLine("=====================");
-                    Console.WriteLine("Digite as informações.\n");
-                    Console.WriteLine($"Nome : {UsuarioLogin._Nome}");
-                    Console.Write("Senha: ");
-                    string senha = Console.ReadLine();
-
-                    if (UsuarioLogin._Senha == senha)
-                    {
-                        Console.WriteLine("Login realizado com sucesso.");
-                        Thread.Sleep(400);
-
-                        return UsuarioLogin._Nome; // Login realizado com sucesso retorna o nome do usuario
-                    }
-                    else
-                    {
-                        Console.WriteLine("Senha incorreta");
-                        Console.WriteLine("\nTentar novamente? (Enter confirma)");
-                    }
-                } while (Console.ReadKey(true).Key == ConsoleKey.Enter);
-
-                break; // Operçao cancelada sair do método login
-            }
-            else
-            {
-                Console.WriteLine("Usuário inexistênte");
-                Console.WriteLine("\nTentar novamente? (Enter confirma)");
-            }
-        } while (Console.ReadKey(true).Key == ConsoleKey.Enter);
-
-        Console.WriteLine("\nOperação cancelada.");
-        return null;
+        bancoDeDados.Conexao.Close();
     }
-
-    public Usuario BuscarUsuario(string Nome)
+    public void ExibirFavoritos()
     {
-        foreach (Usuario x in Usuarios)
-            if (Nome == x._Nome)
-                return x;
+        Console.WriteLine("========== Lista de Favoritos ==========\n");
+        foreach (Midia m in listaFavoritos)
+            Console.WriteLine(m);
+    }
+    public bool RemoverFavorito(Midia midia)
+    {
+        foreach (Midia m in listaFavoritos)
+            if (midia == m)
+            {
+                if (bancoDeDados.Conexao.State != System.Data.ConnectionState.Open)
+                    bancoDeDados.Conexao.Open();
+
+
+                using MySqlCommand Comando = new("DELETE FROM Favoritos WHERE UsuarioId = @UsuarioId AND MidiaId = @MidiaId", bancoDeDados.Conexao);
+                Comando.Parameters.AddWithValue("@UsuarioId", Id);
+                Comando.Parameters.AddWithValue("@MidiaId", midia.Id);
+
+                Comando.ExecuteNonQuery();
+
+                bancoDeDados.Conexao.Close();
+
+                listaFavoritos.Remove(m);
+                return true;
+            }
+
+        return false;
+    }
+    public void RemoverFavoritos()
+    {
+        if (bancoDeDados.Conexao.State != System.Data.ConnectionState.Open)
+            bancoDeDados.Conexao.Open();
+
+        using MySqlCommand Comando = new("DELETE FROM Favoritos Where UsuarioId = @UsuarioId", bancoDeDados.Conexao);
+        Comando.Parameters.AddWithValue("@UsuarioId", Id);
+        Comando.ExecuteNonQuery();
+
+        bancoDeDados.Conexao.Close();
+
+        listaFavoritos.Clear();
+    }
+    public Midia BuscarFavoritoPorNome(string nome)
+    {
+        foreach (Midia m in listaFavoritos)
+            if (m.Nome.Equals(nome, StringComparison.OrdinalIgnoreCase))
+                return m;
 
         return null;
     }
-    public int QtdUsuarios() { return Usuarios.Count; }
+    public int QtdFavoritos() { return listaFavoritos.Count; }
 }
