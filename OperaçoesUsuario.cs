@@ -167,7 +167,6 @@ public class OperaçoesUsuario
             }
             else
             {
-                Console.WriteLine("Usuário não encontrado.");
                 return null;
             }
         }
