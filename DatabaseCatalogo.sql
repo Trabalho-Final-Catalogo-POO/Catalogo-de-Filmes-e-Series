@@ -4,7 +4,7 @@ use Catalogo_Filmes_Series;
 CREATE TABLE Usuarios (
     Id INT AUTO_INCREMENT PRIMARY KEY,
     NomeUsuario VARCHAR(25) NOT NULL,
-    Senha VARCHAR(10) NOT NULL
+    Senha VARCHAR(10) NOT NULL 
 );
 
 CREATE TABLE Midias (
