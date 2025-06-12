@@ -5,6 +5,7 @@ using MySql.Data.MySqlClient;
 public class Menu
 {
     Catalogo catalogo = new Catalogo();
+    BancoDeDados bancoDeDados = new BancoDeDados();
     public int MenuPrincipal(Usuario usuario, OperaçoesUsuario usuarios)
     {
         int opçao;
@@ -592,22 +593,40 @@ public class Menu
             switch (Opcao)
             {
                 case 1: // Fazer login
-                    if (Usuarios.QtdUsuarios() > 0)
+                    try
                     {
-                        string Login = Usuarios.Login();
+                        if (bancoDeDados.Conexao.State != System.Data.ConnectionState.Open)
+                            bancoDeDados.Conexao.Open();
+                        using MySqlCommand comando = new("SELECT COUNT(*) FROM Usuarios", bancoDeDados.Conexao);
+                        long qtd = (long)comando.ExecuteScalar();
 
-                        if (Login != null)
+                        if (qtd > 0)
                         {
-                            Usuario usuario = Usuarios.BuscarUsuario(Login);
-                            flagMenu = MenuPrincipal(usuario, Usuarios);
+                            string Login = Usuarios.Login();
+
+                            if (Login != null)
+                            {
+                                Usuario usuario = Usuarios.BuscarUsuario(Login);
+                                flagMenu = MenuPrincipal(usuario, Usuarios);
+                            }
+                            if (flagMenu == 1)
+                                Opcao = 3;
                         }
-                        if (flagMenu == 1)
-                            Opcao = 3;
+
+                        else
+                        {
+                            Console.WriteLine("Não há usuários cadastrados.");
+                            Console.ReadKey(true);
+                        }
                     }
-                    else
+                    catch (Exception e)
                     {
-                        Console.WriteLine("Não há usuários cadastrados.");
-                        Console.ReadKey(true);
+                        Console.WriteLine($"Erro: {e}");
+                    }
+
+                    finally
+                    {
+                        bancoDeDados.Conexao.Close();
                     }
                     break;
                 case 2: // Fazer cadastro
