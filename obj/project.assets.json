@@ -1614,11 +1614,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\edlau\\OneDrive\\!PUC\\3°\\POO\\Catalogo-de-Filmes-e-Series-dev-vladimirvalentim\\trabalhoPOO.csproj",
+      "projectUniqueName": "C:\\Users\\edlau\\OneDrive\\!PUC\\3°\\POO\\Catalogo-de-Filmes-e-Series\\trabalhoPOO.csproj",
       "projectName": "trabalhoPOO",
-      "projectPath": "C:\\Users\\edlau\\OneDrive\\!PUC\\3°\\POO\\Catalogo-de-Filmes-e-Series-dev-vladimirvalentim\\trabalhoPOO.csproj",
+      "projectPath": "C:\\Users\\edlau\\OneDrive\\!PUC\\3°\\POO\\Catalogo-de-Filmes-e-Series\\trabalhoPOO.csproj",
       "packagesPath": "C:\\Users\\edlau\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\edlau\\OneDrive\\!PUC\\3°\\POO\\Catalogo-de-Filmes-e-Series-dev-vladimirvalentim\\obj\\",
+      "outputPath": "C:\\Users\\edlau\\OneDrive\\!PUC\\3°\\POO\\Catalogo-de-Filmes-e-Series\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
         "C:\\Users\\edlau\\AppData\\Roaming\\NuGet\\NuGet.Config"

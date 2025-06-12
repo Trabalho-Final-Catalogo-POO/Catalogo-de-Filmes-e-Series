@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "BJiM14k3jrs=",
+  "dgSpecHash": "22mvVhYMbVU=",
   "success": true,
-  "projectFilePath": "C:\\Users\\edlau\\OneDrive\\!PUC\\3°\\POO\\Catalogo-de-Filmes-e-Series-dev-vladimirvalentim\\trabalhoPOO.csproj",
+  "projectFilePath": "C:\\Users\\edlau\\OneDrive\\!PUC\\3°\\POO\\Catalogo-de-Filmes-e-Series\\trabalhoPOO.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\edlau\\.nuget\\packages\\bouncycastle.cryptography\\2.5.1\\bouncycastle.cryptography.2.5.1.nupkg.sha512",
     "C:\\Users\\edlau\\.nuget\\packages\\google.protobuf\\3.30.0\\google.protobuf.3.30.0.nupkg.sha512",

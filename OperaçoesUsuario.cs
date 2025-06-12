@@ -39,55 +39,36 @@ public class OperaçoesUsuario
     public bool CadastrarUsuario()
     {
         Usuario Novo = new();
-        bool UsuarioValido = false;
+        bool sts = false;
         do // Loop inserção de usuário
         {
             Console.Clear();
 
             Console.WriteLine("Cadastro de usuário");
             Console.WriteLine("=====================");
-            Console.WriteLine("Digite as informações.\n");
-            Console.Write("Nome : ");
+            Console.WriteLine("Digite as informações.");
+            Console.WriteLine("O nome e a senha não podem ficar vazios");
+            Console.WriteLine("A senha precisa ter no mínimo 6 dígitos.\n");
+            Console.Write($"Nome : {Novo._Nome}");
             string nome = Console.ReadLine();
 
-            if (BuscarUsuario(nome) == null) // Verifica se existe usuário com esse nome
+            sts = Novo.VerificaNome(nome);
+
+            Console.Write("Senha: ");
+            string senha = Console.ReadLine();
+
+            if (Novo.VerificaSenha(senha))
             {
-                UsuarioValido = true;
-                Novo._Nome = nome;
-                break;
+                Novo._Senha = senha;
+                CadastrarUsuarioBD(Novo);
+                Usuarios.Add(Novo);
+
+                return true;
             }
             else
-                Console.WriteLine("\nUsuario já existente.");
+                Console.WriteLine("\nTentar novamente? (Enter confirma)");
 
-            Console.WriteLine("Tentar novamente? (Enter confirma)");
         } while (Console.ReadKey(true).Key == ConsoleKey.Enter);
-
-        if (UsuarioValido)
-        {
-            do // Loop inserção de senha
-            {
-                Console.Clear();
-
-                Console.WriteLine("Cadastro de usuário");
-                Console.WriteLine("=====================");
-                Console.WriteLine("Digite as informações.\n");
-                Console.WriteLine($"Nome : {Novo._Nome}");
-                Console.Write("Senha: ");
-                string senha = Console.ReadLine();
-
-                if (Novo.VerificaSenha(senha))
-                {
-                    Novo._Senha = senha;
-                    CadastrarUsuarioBD(Novo);
-                    Usuarios.Add(Novo);
-
-                    return true;
-                }
-                else
-                    Console.WriteLine("\nTentar novamente? (Enter confirma)");
-
-            } while (Console.ReadKey(true).Key == ConsoleKey.Enter);
-        }
         return false;
     }
     private void CadastrarUsuarioBD(Usuario usuario)
@@ -153,7 +134,7 @@ public class OperaçoesUsuario
             }
             else
             {
-                Console.WriteLine("Usuário inexistênte");
+                Console.WriteLine("Usuário inexistente");
                 Console.WriteLine("\nTentar novamente? (Enter confirma)");
             }
         } while (Console.ReadKey(true).Key == ConsoleKey.Enter);
@@ -163,11 +144,40 @@ public class OperaçoesUsuario
     }
     public Usuario BuscarUsuario(string Nome)
     {
-        foreach (Usuario x in Usuarios)
-            if (x._Nome.Equals(Nome, StringComparison.OrdinalIgnoreCase))
-                return x;
+        try
+        {
+            if (bancoDeDados.Conexao.State != System.Data.ConnectionState.Open)
+                bancoDeDados.Conexao.Open();
 
-        return null;
+            using MySqlCommand comando = new("SELECT Id, NomeUsuario, Senha FROM Usuarios WHERE NomeUsuario = @nome", bancoDeDados.Conexao);
+            comando.Parameters.AddWithValue("@nome", Nome);
+
+            using MySqlDataReader leitor = comando.ExecuteReader();
+
+            if (leitor.Read())
+            {
+                int id = leitor.GetInt32("Id");
+                string nomeUsuario = leitor.GetString("NomeUsuario");
+                string senha = leitor.GetString("Senha");
+
+                return new Usuario(nomeUsuario, senha, id);
+            }
+            else
+            {
+                Console.WriteLine("Usuário não encontrado.");
+                return null;
+            }
+        }
+        catch (Exception ex)
+        {
+            Console.WriteLine($"Erro ao buscar usuário: {ex.Message}");
+            return null;
+        }
+        finally
+        {
+            bancoDeDados.Conexao.Close();
+        }
     }
+
     public int QtdUsuarios() { return Usuarios.Count; }
 }

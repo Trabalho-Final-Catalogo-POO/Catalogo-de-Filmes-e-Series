@@ -93,20 +93,15 @@ public class Usuario
         this.Nome = Nome;
     }
     
-    public bool VerificaNome(string Nome, List<Usuario> Usuarios) // Impede que o nome do usuário esteja vazio ou que se repita
+    public bool VerificaNome(string Nome) // Impede que o nome do usuário esteja vazio ou que se repita
     {
         if (Nome == "")
         {
             Console.WriteLine("\nO usuário não pode ficar vazio.");
             return false;
         }
-        foreach (Usuario x in Usuarios)// Verifica se o usuário existe na cadastro
-            if (Nome.ToUpper() == x._Nome.ToUpper())
-            {
-                Console.WriteLine("\nUsuário já existente.");
 
-                return false;
-            }
+        
 
         return true;
     }
