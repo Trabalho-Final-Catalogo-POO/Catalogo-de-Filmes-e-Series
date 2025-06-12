@@ -1,15 +1,43 @@
-class OperaçoesUsuario
+public class OperaçoesUsuario
 {
-    List<Usuario> Usuarios = new List<Usuario>();
+    BancoDeDados bancoDeDados = new BancoDeDados();
+    public List<Usuario> Usuarios = new List<Usuario>();
+    public OperaçoesUsuario() // Inicializa o objeto o preenchendo com usuarios do BD
+    {
+        PreencherUsuariosComBD();
+    }
 
-    public string Cadastrar()
+    // Manipulação de usuario
+    private void PreencherUsuariosComBD()
+    {
+        if (bancoDeDados.Conexao.State != System.Data.ConnectionState.Open)
+            bancoDeDados.Conexao.Open();
+
+        using MySqlCommand ComandoUsuarios = new("SELECT * FROM Usuarios", bancoDeDados.Conexao);
+        using MySqlDataReader LeitorUsuario = ComandoUsuarios.ExecuteReader();
+
+        while (LeitorUsuario.Read())
+        {
+            string nome = LeitorUsuario.GetString("NomeUsuario");
+            string senha = LeitorUsuario.GetString("Senha");
+            int id = LeitorUsuario.GetInt32("Id");
+
+            Usuario novo = new(nome, senha, id);
+            Usuarios.Add(novo);
+        }
+        bancoDeDados.Conexao.Close();
+    }
+    public void AtualizarUsuarios()
+    {
+        foreach (Usuario U in Usuarios) // Atualiza a lista de favoritos de cada usuario
+            U.AtualizaFavoritosComBD();
+    }
+    public bool CadastrarUsuario()
     {
         Usuario Novo = new();
-        bool existe;
+        bool UsuarioValido = false;
         do // Loop inserção de usuário
         {
-            existe = false;
-
             Console.Clear();
 
             Console.WriteLine("Cadastro de usuário");
@@ -18,25 +46,19 @@ class OperaçoesUsuario
             Console.Write("Nome : ");
             string nome = Console.ReadLine();
 
-            foreach (Usuario x in Usuarios)// Verifica se o usuário existe na cadastro
-                if (nome.ToUpper() == x._Nome.ToUpper())
-                {
-                    existe = true;
-                    Console.WriteLine("\nUsuário já existente.");
-
-                    break;
-                }
-
-            if (!existe)
+            if (BuscarUsuario(nome) == null) // Verifica se existe usuário com esse nome
             {
+                UsuarioValido = true;
                 Novo._Nome = nome;
                 break;
             }
+            else
+                Console.WriteLine("\nUsuario já existente.");
 
-            Console.WriteLine("\nTentar novamente? (Enter confirma)");
+            Console.WriteLine("Tentar novamente? (Enter confirma)");
         } while (Console.ReadKey(true).Key == ConsoleKey.Enter);
 
-        if (!existe)// Nome de usuário aprovado
+        if (UsuarioValido)
         {
             do // Loop inserção de senha
             {
@@ -52,19 +74,36 @@ class OperaçoesUsuario
                 if (Novo.VerificaSenha(senha))
                 {
                     Novo._Senha = senha;
+                    CadastrarUsuarioBD(Novo);
                     Usuarios.Add(Novo);
-                    return Novo._Nome;
+
+                    return true;
                 }
                 else
                     Console.WriteLine("\nTentar novamente? (Enter confirma)");
 
             } while (Console.ReadKey(true).Key == ConsoleKey.Enter);
         }
-        return null;
+        return false;
+    }
+    private void CadastrarUsuarioBD(Usuario usuario)
+    {
+        if (bancoDeDados.Conexao.State != System.Data.ConnectionState.Open)
+            bancoDeDados.Conexao.Open();
+
+        using MySqlCommand Comando = new("INSERT INTO Usuarios (NomeUsuario,Senha) VALUES (@nome,@senha)", bancoDeDados.Conexao);
+        Comando.Parameters.AddWithValue("@nome", usuario._Nome);
+        Comando.Parameters.AddWithValue("@senha", usuario._Senha);
+        Comando.ExecuteNonQuery();
+
+        long id = Comando.LastInsertedId;
+        usuario.Id = id;
+
+        bancoDeDados.Conexao.Close();
     }
     public string Login()
     {
-        do // Loop 
+        do // Loop para teste do nome
         {
             Console.Clear();
 
@@ -72,17 +111,16 @@ class OperaçoesUsuario
             Console.WriteLine("=====================");
             Console.WriteLine("Digite as informações.\n");
             Console.Write("Nome : ");
-            string nome = Console.ReadLine();
+            string nome = Console.ReadLine().Trim();
 
-            Usuario UsuarioLogin = BuscarUsuario(nome);
-            // Verifica se o usuário existe na cadastro
+            Usuario UsuarioLogin = BuscarUsuario(nome); // Verifica se o usuário existe na cadastro
 
             if (UsuarioLogin != null)
             {
                 Console.WriteLine("Usuário encontrado.");
                 Thread.Sleep(400);
 
-                do // Loop 
+                do // Loop para teste de senha 
                 {
                     Console.Clear();
 
@@ -119,11 +157,10 @@ class OperaçoesUsuario
         Console.WriteLine("\nOperação cancelada.");
         return null;
     }
-
     public Usuario BuscarUsuario(string Nome)
     {
         foreach (Usuario x in Usuarios)
-            if (Nome == x._Nome)
+            if (x._Nome.Equals(Nome, StringComparison.OrdinalIgnoreCase))
                 return x;
 
         return null;
