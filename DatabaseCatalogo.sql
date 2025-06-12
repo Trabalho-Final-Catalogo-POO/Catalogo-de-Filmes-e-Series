@@ -14,15 +14,14 @@ CREATE TABLE Midias (
     Tipo VARCHAR(10) NOT NULL,
     AnoLancamento INT
 );
-
 CREATE TABLE Filmes (
     MidiaId INT PRIMARY KEY,
-    Duracao DOUBLE not null,
+    Duracao DOUBLE NOT NULL,
     Diretor VARCHAR(25),
     FOREIGN KEY (MidiaId)
         REFERENCES Midias (id)
+        ON UPDATE CASCADE ON DELETE CASCADE
 );
-
 CREATE TABLE Series (
     MidiaId INT PRIMARY KEY,
     Duracao DOUBLE NOT NULL,
@@ -30,14 +29,17 @@ CREATE TABLE Series (
     QntEpisodios INT NOT NULL,
     FOREIGN KEY (MidiaId)
         REFERENCES Midias (id)
+        ON UPDATE CASCADE ON DELETE CASCADE
 );
 
 CREATE TABLE Favoritos (
     MidiaId INT,
     UsuarioId INT,
     PRIMARY KEY (MidiaId , UsuarioId),
-    FOREIGN KEY (MidiaId)
-        REFERENCES Midias (Id),
-    FOREIGN KEY (UsuarioId)
+    FOREIGN KEY Fk_Midia (MidiaId)
+        REFERENCES Midias (Id)
+		ON UPDATE CASCADE ON DELETE CASCADE,
+    FOREIGN KEY Fk_Usuarios (UsuarioId)
         REFERENCES Usuarios (Id)
+        ON UPDATE CASCADE ON DELETE CASCADE
 );
