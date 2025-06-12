@@ -302,13 +302,89 @@ public class Catalogo
     }
     public Midia BuscarPorNome(string nome)
     {
-        foreach (Filme f in filmes)
-            if (f.Nome.Equals(nome, StringComparison.OrdinalIgnoreCase))
-                return f;
+        // foreach (Filme f in filmes)
+        //     if (f.Nome.Equals(nome, StringComparison.OrdinalIgnoreCase))
+        //         return f;
 
-        foreach (Serie s in series)
-            if (s.Nome.Equals(nome, StringComparison.OrdinalIgnoreCase))
-                return s;
+        // foreach (Serie s in series)
+        //     if (s.Nome.Equals(nome, StringComparison.OrdinalIgnoreCase))
+        //         return s;
+
+        // return null;
+
+        try
+        {
+            if (bancoDeDados.Conexao.State != System.Data.ConnectionState.Open)
+                bancoDeDados.Conexao.Open();
+
+            using MySqlCommand comando = new("SELECT Nome FROM Midias WHERE Nome = @nome", bancoDeDados.Conexao);
+            comando.Parameters.AddWithValue("@nome", nome);
+
+            using MySqlDataReader leitor = comando.ExecuteReader();
+
+            if (leitor.Read())
+            {
+                leitor.Close();
+                using MySqlCommand midia = new("SELECT ID, Nome, Genero, AnoLancamento, Tipo FROM Midias WHERE Nome = @nome", bancoDeDados.Conexao);
+                midia.Parameters.AddWithValue("@nome", nome);
+
+                using MySqlDataReader leitor_midia = midia.ExecuteReader();
+
+                if (leitor_midia.Read())
+                {
+                    long id_midia = leitor_midia.GetInt32("ID");
+                    string nome_midia = leitor_midia.GetString("Nome");
+                    string genero_midia = leitor_midia.GetString("Genero");
+                    int anolancamento_midia = leitor_midia.GetInt32("AnoLancamento");
+                    string tipo_midia = leitor_midia.GetString("Tipo");
+
+                    if (tipo_midia == "filme")
+                    {
+                        leitor_midia.Close();
+                        using MySqlCommand filme = new("SELECT Duracao, Diretor FROM Filmes WHERE MidiaID in (SELECT id FROM Midias Where Nome = @nome)", bancoDeDados.Conexao);
+                        filme.Parameters.AddWithValue("@nome", nome);
+
+                        using MySqlDataReader leitor_filme = filme.ExecuteReader();
+
+                        if (leitor_filme.Read())
+                        {
+                            int duracao = leitor_filme.GetInt32("Duracao");
+                            string diretor = leitor_filme.GetString("Diretor");
+
+                            return new Filme(nome_midia, genero_midia, anolancamento_midia, id_midia, duracao, diretor);
+                        }
+                    }
+                    else if (tipo_midia == "serie")
+                    {
+                        leitor_midia.Close();
+
+                        using MySqlCommand serie = new("SELECT Duracao, Temporadas, QntEpisodios FROM series WHERE MidiaID in (SELECT id FROM Midias Where Nome = @nome)", bancoDeDados.Conexao);
+                        serie.Parameters.AddWithValue("@nome", nome);
+
+                        using MySqlDataReader leitor_serie = serie.ExecuteReader();
+
+                        if (leitor_serie.Read())
+                        {
+                            int duracao = leitor_serie.GetInt32("Duracao");
+                            int temporadas = leitor_serie.GetInt32("Temporadas");
+                            int qnt_episodios = leitor_serie.GetInt32("QntEpisodios");
+
+                            return new Serie(nome_midia, genero_midia, anolancamento_midia, id_midia, duracao, temporadas, qnt_episodios);
+                        }
+                    }
+                }
+            }
+        }
+
+        catch (Exception e)
+        {
+            Console.WriteLine($"Erro: {e}");
+        }
+
+        finally
+        {
+            bancoDeDados.Conexao.Close();
+        }
 
         return null;
     }
