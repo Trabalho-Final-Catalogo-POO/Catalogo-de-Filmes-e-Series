@@ -208,6 +208,64 @@ public class Usuario
                 return m;
 
         return null;
+
+    //     try
+    //     {
+    //         if (bancoDeDados.Conexao.State != System.Data.ConnectionState.Open)
+    //             bancoDeDados.Conexao.Open();
+
+    //         using MySqlCommand comando = new("SELECT MidiaID FROM Favoritos WHERE UsuarioID = @id", bancoDeDados.Conexao);
+    //         comando.Parameters.AddWithValue("@id", Id);
+
+    //         using MySqlDataReader leitor = comando.ExecuteReader();
+
+    //         List<int> lista_id = new List<int>();
+
+    //         while (leitor.Read())
+    //         {
+    //             int id = leitor.GetInt32("Id");
+
+    //             lista_id.Add(id);
+    //         }
+
+    //         leitor.Close();
+
+    //         using MySqlCommand favorito = new("SELECT Id FROM Midia WHERE Nome = @nome", bancoDeDados.Conexao);
+    //         favorito.Parameters.AddWithValue("@nome", nome);
+
+    //         using MySqlDataReader leitor_midia = favorito.ExecuteReader();
+
+    //         if (leitor_midia.Read())
+    //         {
+    //             int id = leitor_midia.GetInt32("Id");
+
+    //             foreach (int identificacao in lista_id)
+    //             {
+    //                 if (identificacao == id)
+    //                 {
+    //                     Catalogo catalogo = new Catalogo();
+    //                     return catalogo.BuscarPorNome(nome);
+    //                 }
+    //             }
+    //         }
+
+    //         leitor_midia.Close();
+
+    //         return null;
+
+    //     }
+
+    //     catch (Exception e)
+    //     {
+    //         Console.WriteLine($"Erro: {e}");
+    //     }
+
+    //     finally
+    //     {
+    //         bancoDeDados.Conexao.Close();
+    //     }
+
+    //     return null;
     }
     public int QtdFavoritos() { return listaFavoritos.Count; }
 }

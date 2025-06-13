@@ -61,6 +61,7 @@ public class OperaçoesUsuario
 
                 if (Novo.VerificaSenha(senha))
                 {
+                    Novo.NovoNome(nome);
                     Novo._Senha = senha;
                     CadastrarUsuarioBD(Novo);
                     Usuarios.Add(Novo);

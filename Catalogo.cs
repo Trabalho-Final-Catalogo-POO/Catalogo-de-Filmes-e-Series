@@ -302,16 +302,6 @@ public class Catalogo
     }
     public Midia BuscarPorNome(string nome)
     {
-        // foreach (Filme f in filmes)
-        //     if (f.Nome.Equals(nome, StringComparison.OrdinalIgnoreCase))
-        //         return f;
-
-        // foreach (Serie s in series)
-        //     if (s.Nome.Equals(nome, StringComparison.OrdinalIgnoreCase))
-        //         return s;
-
-        // return null;
-
         try
         {
             if (bancoDeDados.Conexao.State != System.Data.ConnectionState.Open)
