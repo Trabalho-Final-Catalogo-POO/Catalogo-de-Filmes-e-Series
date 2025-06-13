@@ -95,7 +95,7 @@ public class Usuario
     
     public bool VerificaNome(string Nome) // Impede que o nome do usuário esteja vazio ou que se repita
     {
-        if (Nome == "")
+        if (string.IsNullOrWhiteSpace(Nome))
         {
             Console.WriteLine("\nO usuário não pode ficar vazio.");
             return false;
