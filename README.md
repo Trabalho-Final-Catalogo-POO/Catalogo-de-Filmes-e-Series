@@ -21,6 +21,7 @@ Este sistema simula um catálogo de filmes e séries, permitindo:
 - MySQL Connector/NET
 - Programação Orientada a Objetos (POO)
 
+
   ## 🧩 Requisitos
 
 - MySQL instalado e rodando em `localhost`
@@ -30,6 +31,7 @@ Este sistema simula um catálogo de filmes e séries, permitindo:
 https://dotnet.microsoft.com/download
 ```
 - **Pacote `MySql.Data` adicionado ao projeto (veja abaixo)**
+  
 
 ### 📦 Instalação do pacote MySQL
 
@@ -38,6 +40,7 @@ Para que o código se conecte ao banco de dados corretamente, é necessário ins
 ```bash
 dotnet add package MySql.Data
 ```
+
 
 ## 🛠️ Configuração do Banco de Dados
 
