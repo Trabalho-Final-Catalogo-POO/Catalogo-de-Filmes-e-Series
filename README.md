@@ -59,7 +59,7 @@ dotnet add package MySql.Data
 
 ## 🛠️ Configuração do Banco de Dados
 
-O código SQL necessário para criação do banco de dados e suas tabelas está disponível no arquivo `DATABASECatalogo.sql`, localizado na raiz do projeto.
+O código SQL necessário para criação do banco de dados e suas tabelas está disponível no arquivo `DatabaseCatalogo.sql`, localizado na raiz do projeto.
 
 Você pode executá-lo diretamente no MySQL Workbench, DBeaver ou outro cliente de sua preferência.
 
