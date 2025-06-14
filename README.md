@@ -90,40 +90,44 @@ ALTER USER 'root'@'localhost' IDENTIFIED WITH mysql_native_password BY 'Root1904
 FLUSH PRIVILEGES;
 ```
 ## 🔐 Conexão com o banco:
+
 No arquivo Conexao.cs, atualize a string de conexão conforme sua configuração local:
 
-string conexao = "server=localhost;user=root;password=Root190406@;database=Catalogo_Filmes_Series";
+```c# string conexao = "server=localhost;user=root;password=Root190406@;database=Catalogo_Filmes_Series";```
 
 ## 📸 Funcionalidades:
 
-✅ Cadastro de usuários
+- ✅ Cadastro de usuários
 
-✅ Cadastro e listagem de filmes e séries
+- ✅ Cadastro e listagem de filmes e séries
 
-✅ Associação de mídias aos usuários como "favoritos"
+- ✅ Associação de mídias aos usuários como "favoritos"
 
-✅ Busca de mídias por nome
+- ✅ Busca de mídias por nome
 
-🚧 Edição e exclusão de mídias (em desenvolvimento)
+- 🚧 Edição e exclusão de mídias (em desenvolvimento)
 
 ## 📋 Como Executar
+
 Clone o repositório:
 
 git clone https://github.com/Trabalho-Final-Catalogo-POO/Catalogo-de-Filmes-e-Series.git
 
-Execute o script DATABASECatalogo.sql no MySQL
+- Execute o script DATABASECatalogo.sql no MySQL
 
-Abra o projeto no Visual Studio
+- Abra o projeto no Visual Studio
 
-Verifique a string de conexão em Conexao.cs
+- Verifique a string de conexão em Conexao.cs
 
-Compile e execute o projeto (F5)
+- Compile e execute o projeto (F5 ou dotnet run no terminal)
 
 ## 👨‍💻 Autores
-Arthur Henry Martins Brito
+
+- Arthur Henry Martins Brito
 
 
 ## 📄 Licença
+
 Este projeto é de uso educacional e não possui fins comerciais.
 
 
