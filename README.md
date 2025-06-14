@@ -21,8 +21,7 @@ Este sistema simula um catálogo de filmes e séries, permitindo:
 - MySQL Connector/NET
 - Programação Orientada a Objetos (POO)
 
-
-  ## 🧩 Requisitos
+## 🧩 Requisitos
 
 - MySQL instalado e rodando em `localhost`
 - Visual Studio com suporte a projetos Windows Forms
