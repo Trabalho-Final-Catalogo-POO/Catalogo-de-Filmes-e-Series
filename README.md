@@ -13,6 +13,18 @@ Este sistema simula um catálogo de filmes e séries, permitindo:
 - Armazenamento de dados com **MySQL**
 - Interface gráfica (separada)  com **Windows Forms**
 
+## 📸 Funcionalidades:
+
+- ✅ Cadastro de usuários
+
+- ✅ Cadastro e listagem de filmes e séries
+
+- ✅ Associação de mídias aos usuários como "favoritos"
+
+- ✅ Busca de mídias por nome
+
+- 🚧 Edição e exclusão de mídias (em desenvolvimento)
+
 ## 🚀 Tecnologias Utilizadas
 
 - C# (.NET)
@@ -55,18 +67,6 @@ No arquivo Conexao.cs, atualize a string de conexão conforme sua configuração
 ```csharp
  string conexao = "server=localhost;user=root;password=Root190406@;database=Catalogo_Filmes_Series";
 ```
-
-## 📸 Funcionalidades:
-
-- ✅ Cadastro de usuários
-
-- ✅ Cadastro e listagem de filmes e séries
-
-- ✅ Associação de mídias aos usuários como "favoritos"
-
-- ✅ Busca de mídias por nome
-
-- 🚧 Edição e exclusão de mídias (em desenvolvimento)
 
 ## 📋 Como Executar
 
