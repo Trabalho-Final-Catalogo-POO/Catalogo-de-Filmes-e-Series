@@ -92,8 +92,9 @@ FLUSH PRIVILEGES;
 ## 🔐 Conexão com o banco:
 
 No arquivo Conexao.cs, atualize a string de conexão conforme sua configuração local:
-
-```c# string conexao = "server=localhost;user=root;password=Root190406@;database=Catalogo_Filmes_Series";```
+```csharp
+ string conexao = "server=localhost;user=root;password=Root190406@;database=Catalogo_Filmes_Series";
+```
 
 ## 📸 Funcionalidades:
 
@@ -111,7 +112,9 @@ No arquivo Conexao.cs, atualize a string de conexão conforme sua configuração
 
 Clone o repositório:
 
-git clone https://github.com/Trabalho-Final-Catalogo-POO/Catalogo-de-Filmes-e-Series.git
+```bash 
+ git clone https://github.com/Trabalho-Final-Catalogo-POO/Catalogo-de-Filmes-e-Series.git
+```
 
 - Execute o script DATABASECatalogo.sql no MySQL
 
@@ -124,6 +127,8 @@ git clone https://github.com/Trabalho-Final-Catalogo-POO/Catalogo-de-Filmes-e-Se
 ## 👨‍💻 Autores
 
 - Arthur Henry Martins Brito
+  
+- João Marcos Moreira Laudares
 
 
 ## 📄 Licença
