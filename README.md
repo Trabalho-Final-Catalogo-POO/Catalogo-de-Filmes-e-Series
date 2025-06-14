@@ -23,7 +23,9 @@ Este sistema simula um catálogo de filmes e séries, permitindo:
 
 - ✅ Busca de mídias por nome
 
-- 🚧 Edição e exclusão de mídias (em desenvolvimento)
+- ✅ Favoritar Midia
+
+- 🚧 Exclusão de mídias (em desenvolvimento)
 
 ## 🚀 Tecnologias Utilizadas
 
