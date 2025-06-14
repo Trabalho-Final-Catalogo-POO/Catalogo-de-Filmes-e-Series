@@ -25,11 +25,10 @@ Este sistema simula um catálogo de filmes e séries, permitindo:
 
 - MySQL instalado e rodando em `localhost`
 - Visual Studio com suporte a projetos Windows Forms
-- [.NET SDK](
+- [.NET SDK] instalado, link abaixo:
 ```bash
 https://dotnet.microsoft.com/download
 ```
-) instalado
 - **Pacote `MySql.Data` adicionado ao projeto (veja abaixo)**
 
 ### 📦 Instalação do pacote MySQL
