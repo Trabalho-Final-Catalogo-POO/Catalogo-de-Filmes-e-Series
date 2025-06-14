@@ -21,12 +21,24 @@ Este sistema simula um catálogo de filmes e séries, permitindo:
 - MySQL Connector/NET
 - Programação Orientada a Objetos (POO)
 
-
-## 🧩 Requisitos
+  ## 🧩 Requisitos
 
 - MySQL instalado e rodando em `localhost`
 - Visual Studio com suporte a projetos Windows Forms
-- MySQL Connector/NET instalado
+- [.NET SDK](
+```bash
+https://dotnet.microsoft.com/download
+```
+) instalado
+- **Pacote `MySql.Data` adicionado ao projeto (veja abaixo)**
+
+### 📦 Instalação do pacote MySQL
+
+Para que o código se conecte ao banco de dados corretamente, é necessário instalar o pacote de integração com o MySQL. Execute no terminal, dentro da pasta do projeto:
+
+```bash
+dotnet add package MySql.Data
+```
 
 ## 🛠️ Configuração do Banco de Dados
 
