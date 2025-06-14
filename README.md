@@ -89,12 +89,12 @@ CREATE TABLE Favoritos (
 ALTER USER 'root'@'localhost' IDENTIFIED WITH mysql_native_password BY 'Root190406@';
 FLUSH PRIVILEGES;
 ```
-🔐 Conexão com o banco:
+## 🔐 Conexão com o banco:
 No arquivo Conexao.cs, atualize a string de conexão conforme sua configuração local:
 
 string conexao = "server=localhost;user=root;password=Root190406@;database=Catalogo_Filmes_Series";
 
-📸 Funcionalidades:
+## 📸 Funcionalidades:
 
 ✅ Cadastro de usuários
 
@@ -106,7 +106,7 @@ string conexao = "server=localhost;user=root;password=Root190406@;database=Catal
 
 🚧 Edição e exclusão de mídias (em desenvolvimento)
 
-📋 Como Executar
+## 📋 Como Executar
 Clone o repositório:
 
 git clone https://github.com/Trabalho-Final-Catalogo-POO/Catalogo-de-Filmes-e-Series.git
@@ -119,11 +119,11 @@ Verifique a string de conexão em Conexao.cs
 
 Compile e execute o projeto (F5)
 
-👨‍💻 Autores
+## 👨‍💻 Autores
 Arthur Henry Martins Brito
 
 
-📄 Licença
+## 📄 Licença
 Este projeto é de uso educacional e não possui fins comerciais.
 
 
