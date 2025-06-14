@@ -20,6 +20,8 @@ Este sistema simula um catálogo de filmes e séries, permitindo:
 - MySQL
 - MySQL Connector/NET
 - Programação Orientada a Objetos (POO)
+- Diagrama de classe
+- Modelos Conceituais
 
 ## 🧩 Requisitos
 
