@@ -98,6 +98,8 @@ dotnet add package MySql.Data
   
 - João Marcos Moreira Laudares
 
+- Vladimir Valentim Vieira da Costa
+
 
 ## 📄 Licença
 
