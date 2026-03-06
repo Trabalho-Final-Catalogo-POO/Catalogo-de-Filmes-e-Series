@@ -1,8 +1,8 @@
-# 🎬 Catálogo de Filmes e Séries
+# Catálogo de Filmes e Séries
 
 Projeto final da disciplina de **Programação Orientada a Objetos (POO)**, desenvolvido por estudantes de **Sistemas de Informação - PUC Minas Betim**.
 
-## 📌 Descrição
+## Descrição
 
 Este sistema simula um catálogo de filmes e séries, permitindo:
 
@@ -13,21 +13,21 @@ Este sistema simula um catálogo de filmes e séries, permitindo:
 - Armazenamento de dados com **MySQL**
 - Interface gráfica (separada)  com **Windows Forms**
 
-## 📸 Funcionalidades:
+## Funcionalidades:
 
-- ✅ Cadastro de usuários
+- Cadastro de usuários
 
-- ✅ Cadastro e listagem de filmes e séries
+- Cadastro e listagem de filmes e séries
 
-- ✅ Associação de mídias aos usuários como "favoritos"
+- Associação de mídias aos usuários como "favoritos"
 
-- ✅ Busca de mídias por nome
+- Busca de mídias por nome
 
-- ✅ Favoritar Midia
+- Favoritar Midia
 
-- 🚧 Exclusão de mídias (em desenvolvimento)
+- Exclusão de mídias (em desenvolvimento)
 
-## 🚀 Tecnologias Utilizadas
+## Tecnologias Utilizadas
 
 - C# (.NET)
 - Windows Forms
@@ -37,7 +37,7 @@ Este sistema simula um catálogo de filmes e séries, permitindo:
 - Diagrama de classe
 - Modelos Conceituais
 
-## 🧩 Requisitos
+## Requisitos
 
 - MySQL instalado e rodando em `localhost`
 - Visual Studio com suporte a projetos Windows Forms
@@ -48,7 +48,7 @@ https://dotnet.microsoft.com/download
 - **Pacote `MySql.Data` adicionado ao projeto (veja abaixo)**
   
 
-## 📦 Instalação do pacote MySQL
+## Instalação do pacote MySQL
 
 Para que o código se conecte ao banco de dados corretamente, é necessário instalar o pacote de integração com o MySQL. Execute no terminal, dentro da pasta do projeto:
 
@@ -57,20 +57,20 @@ dotnet add package MySql.Data
 ```
 
 
-## 🛠️ Configuração do Banco de Dados
+## Configuração do Banco de Dados
 
 O código SQL necessário para criação do banco de dados e suas tabelas está disponível no arquivo `DatabaseCatalogo.sql`, localizado na raiz do projeto.
 
 Você pode executá-lo diretamente no MySQL Workbench, DBeaver ou outro cliente de sua preferência.
 
-## 🔐 Conexão com o banco:
+## Conexão com o banco:
 
 No arquivo Conexao.cs, atualize a string de conexão conforme sua configuração local:
 ```csharp
  string conexao = "server=localhost;user=root;password=Root190406@;database=Catalogo_Filmes_Series";
 ```
 
-## 📋 Como Executar
+## Como Executar
 
 Clone o repositório:
 
@@ -92,7 +92,7 @@ dotnet add package MySql.Data
 
 - Compile e execute o projeto (F5 ou dotnet run no terminal)
 
-## 👨‍💻 Autores
+## Autores
 
 - Arthur Henry Martins Brito
   
@@ -101,9 +101,10 @@ dotnet add package MySql.Data
 - Vladimir Valentim Vieira da Costa
 
 
-## 📄 Licença
+## Licença
 
 Este projeto é de uso educacional e não possui fins comerciais.
+
 
 
 
